@@ -1,0 +1,35 @@
+html, body, h1, form, fieldset, legend, p {
+	margin: 0;
+	padding: 0;
+}
+body {
+	background: #ffffff;
+	color: #111111;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	padding: 20px;
+}
+form#brewsheet {
+background: #9cbc2c;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+border-radius: 5px;
+padding: 20px;
+width: 400px;
+}
+form#brewsheet fieldset {
+border: none;
+margin-bottom: 10px;
+}
+form#brewsheet legend {
+color: #384313;
+font-size: 16px;
+font-weight: bold;
+padding-bottom: 10px;
+text-shadow: 0 1px 1px #c0d576;
+}
+
+form#brewsheet label {
+float: left;
+font-size: 13px;
+width: 110px;
+}
