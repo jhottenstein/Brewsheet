@@ -10,7 +10,7 @@ files = [
   'test/unit/**/*.js'
 ];
 
-autoWatch = true;
+autoWatch = false;
 
 browsers = ['Chrome'];
 
