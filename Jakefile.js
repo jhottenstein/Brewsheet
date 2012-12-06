@@ -1,5 +1,6 @@
 var SUPPORTED_BROWSERS = [
-    "Chrome 17.0"
+  //    "Chrome 17.0",
+    "Chrome 23.0"
 ];
 
 desc("Just test for now");

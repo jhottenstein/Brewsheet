@@ -8,3 +8,18 @@ The Recipe Formulation Process:
 6. Ascertain finishing issues, including clarification and carbonation.
 
 That is what this brewsheet should assist with.
+
+
+MMFs
+- Calculate Hop Bill
+
+Stories
+* Capture Hop prerequisites
+- Capture desired hop type
+- Calculate bittering hop additions
+
+Tasks
+= Create Design page to capture Batch Size, OG, IBU
+* Show BU/GU Ratio
+- Print values on Hop page
+
