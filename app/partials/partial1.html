@@ -10,18 +10,18 @@
   </p>
   <p>
     <label for="og">Original Gravity</label>
-    <input id="og" name="og">
+    <input id="og" ng-model="og">
   </p>
   <p>
     <label for="ibu">Bitterness</label>
-    <input id="ibu" name="ibu">
+    <input id="ibu" ng-model="ibu">
   </p>
   <p>
     <label for="color">Color</label>
     <input id="color" name="color">
   </p>
   <p>
-    <label for="bu_gu">Color</label>
-    <span id="bu_gu"></span>
+    <label for="bu_gu">BU/GU</label>
+    <span id="bu_gu">{{bu_gu()}}</span>
   </p>
 </fieldset>

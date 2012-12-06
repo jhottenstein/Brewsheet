@@ -3,11 +3,12 @@
 /* jasmine specs for controllers go here */
 
 describe('MyCtrl1', function(){
-  var myCtrl1;
+  var scope, ctrl;
 
-  beforeEach(function(){
-    myCtrl1 = new MyCtrl1();
-  });
+//beforeEach(inject(function($rootScope, $controller){
+//  scope = $rootScope.$new();
+//  ctrl = $controller(MyCtrl1, {$scope: scope});
+//}));
 
 
   it('should ....', function() {
