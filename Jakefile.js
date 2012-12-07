@@ -1,5 +1,6 @@
 var SUPPORTED_BROWSERS = [
   //    "Chrome 17.0",
+    "Chrome 22.0",
     "Chrome 23.0"
 ];
 
@@ -10,41 +11,47 @@ desc("Test client code");
 task("test", ["test:units", "test:e2e"]);
 
 namespace('test', function() {
-    desc("Run Testacular end to end tests");
-    task("e2e", function() {
-      testacular(["start", "config/testacular-e2e.conf.js"], "Failed", complete);
-      }, {async: true});
+  desc("Run Testacular end to end tests");
+  task("e2e", function() {
+    testacular(["start", "config/testacular-e2e.conf.js"], "Failed", complete);
+    }, {async: true});
 
-    desc("Start Testacular server for testing");
-    task("start", function() {
-      testacular(["start", "config/testacular.conf.js"], "Could not start Testacular server", complete);
-      }, {async: true});
+  desc("Start Testacular server for unit testing");
+  task("start-e2e", function() {
+    testacular(["start", "config/testacular-e2e.conf.js"], "Could not start Testacular e2e server", complete);
+    }, {async: true});
 
-    desc("Test client code");
-    task("units", function() {
-      var config = {};
+  desc("Start Testacular server for unit testing");
+  task("start", function() {
+    testacular(["start", "config/testacular.conf.js"], "Could not start Testacular unit server", complete);
+    }, {async: true});
 
-      var output = "";
-      var oldStdout = process.stdout.write;
-      process.stdout.write = function(data) {
+  desc("Test client code");
+  task("units", function() {
+    //var config = {"runnerPort": 9110 };
+    var config = {};
+
+    var output = "";
+    var oldStdout = process.stdout.write;
+    process.stdout.write = function(data) {
       output += data;
       oldStdout.apply(this, arguments);
-      };
+    };
 
-      require("testacular/lib/runner").run(config, function(exitCode) {
-        process.stdout.write = oldStdout;
+    require("testacular/lib/runner").run(config, function(exitCode) {
+      process.stdout.write = oldStdout;
 
-        if (exitCode) fail("Client tests failed (to start server, run 'jake test:start')");
-        var browserMissing = false;
-        SUPPORTED_BROWSERS.forEach(function(browser) {
-          browserMissing = checkIfBrowserTested(browser, output) || browserMissing;
-          });
-        if (browserMissing && !process.env.loose) fail("Did not test all supported browsers (use 'loose=true' to suppress error)");
-        if (output.indexOf("TOTAL: 0 SUCCESS") !== -1) fail("Client tests did not run!");
+      if (exitCode) fail("Client tests failed (to start server, run 'jake test:start')");
+      var browserMissing = false;
+      SUPPORTED_BROWSERS.forEach(function(browser) {
+        browserMissing = checkIfBrowserTested(browser, output) || browserMissing;
+      });
+      if (browserMissing && !process.env.loose) fail("Did not test all supported browsers (use 'loose=true' to suppress error)");
+      if (output.indexOf("TOTAL: 0 SUCCESS") !== -1) fail("Client tests did not run!");
 
-        complete();
-        });
-    }, {async: true});
+      complete();
+    });
+  }, {async: true});
 });
 
 function testacular(args, errorMessage, callback) {

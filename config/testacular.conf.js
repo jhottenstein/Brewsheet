@@ -12,8 +12,9 @@ files = [
 
 autoWatch = false;
 
-browsers = ['Chrome'];
+//browsers = ['Chrome'];
 
+reporters = ['dots', 'junit'];
 junitReporter = {
   outputFile: 'test_out/unit.xml',
   suite: 'unit'

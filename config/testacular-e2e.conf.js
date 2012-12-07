@@ -8,14 +8,16 @@ files = [
 
 autoWatch = false;
 
-browsers = ['Chrome'];
+//browsers = ['Chrome'];
+runnerPort = 9110;
 
-singleRun = true;
+//singleRun = true;
 
 proxies = {
   '/': 'http://localhost/~ohottenstein/brew/'
 };
 
+reporters = ['dots', 'junit'];
 junitReporter = {
   outputFile: 'test_out/e2e.xml',
   suite: 'e2e'
