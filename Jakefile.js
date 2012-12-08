@@ -1,7 +1,4 @@
 var SUPPORTED_BROWSERS = [
-  //    "Chrome 17.0",
-    "Chrome 22.0",
-    "Chrome 23.0"
 ];
 
 desc("Just test for now");
@@ -21,14 +18,14 @@ namespace('test', function() {
     testacular(["start", "config/testacular/single-units.conf.js"], "Failed", complete);
     }, {async: true});
 
-  desc("Start Testacular server for unit testing");
-  task("start-e2e", function() {
-    testacular(["start", "config/testacular-e2e.conf.js"], "Could not start Testacular e2e server", complete);
-    }, {async: true});
+//desc("Start Testacular server for unit testing");
+//task("start-e2e", function() {
+//  testacular(["start", "config/testacular-e2e.conf.js"], "Could not start Testacular e2e server", complete);
+//  }, {async: true});
 
   desc("Start Testacular server for unit testing");
   task("start", function() {
-    testacular(["start", "config/testacular.conf.js"], "Could not start Testacular unit server", complete);
+    testacular(["start", "config/testacular/units.conf.js"], "Could not start Testacular unit server", complete);
     }, {async: true});
 
   desc("Test client code");
