@@ -1,4 +1,4 @@
-basePath = '../';
+basePath = '../../';
 
 files = [
   JASMINE,
@@ -12,10 +12,7 @@ files = [
 
 autoWatch = false;
 
-//browsers = ['Chrome'];
+browsers = ['Chrome'];
+singleRun = true;
 
-reporters = ['dots', 'junit'];
-junitReporter = {
-  outputFile: 'test_out/unit.xml',
-  suite: 'unit'
-};
+reporters = ['dots'];

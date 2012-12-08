@@ -8,12 +8,17 @@ desc("Just test for now");
 task("default", ["test"]);
 
 desc("Test client code");
-task("test", ["test:units", "test:e2e"]);
+task("test", ["test:single-units", "test:single-e2e"]);
 
 namespace('test', function() {
-  desc("Run Testacular end to end tests");
-  task("e2e", function() {
-    testacular(["start", "config/testacular-e2e.conf.js"], "Failed", complete);
+  desc("Single run of all end to end tests");
+  task("single-e2e", function() {
+    testacular(["start", "config/testacular/single-e2e.conf.js"], "Failed", complete);
+    }, {async: true});
+
+  desc("Single run of all unit tests");
+  task("single-units", function() {
+    testacular(["start", "config/testacular/single-units.conf.js"], "Failed", complete);
     }, {async: true});
 
   desc("Start Testacular server for unit testing");
