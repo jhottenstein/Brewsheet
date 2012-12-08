@@ -2,30 +2,20 @@
 
 /* jasmine specs for controllers go here */
 
-describe('MyCtrl1', function(){
-  var scope, ctrl;
+describe('Beer Design Controller', function(){
 
-//beforeEach(inject(function($rootScope, $controller){
-//  scope = $rootScope.$new();
-//  ctrl = $controller(MyCtrl1, {$scope: scope});
-//}));
-
-
-  it('should ....', function() {
-    //spec body
+  it('should be able to calculate BU/GU', function() {
+    var scope = {};
+    var ctrl = new BeerDesignController(scope);
+    scope.ibu = 50;
+    scope.og = 1.050;
+    expect(scope.buGu()).toBeCloseTo(1); 
   });
+
 });
 
 
 describe('MyCtrl2', function(){
-  var myCtrl2;
-
-
-  beforeEach(function(){
-    myCtrl2 = new MyCtrl2();
-  });
-
-
   it('should ....', function() {
     //spec body
   });

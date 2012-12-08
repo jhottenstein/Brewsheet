@@ -10,18 +10,18 @@ describe('my app', function() {
 
 
   it('should automatically redirect to /view1 when location hash/fragment is empty', function() {
-    expect(browser().location().url()).toBe("/view1");
+    expect(browser().location().url()).toBe("/beer_design");
   });
 
 
-  describe('view1', function() {
+  describe('Beer Design view', function() {
 
     beforeEach(function() {
-      browser().navigateTo('#/view1');
+      browser().navigateTo('#/beer_design');
     });
 
 
-    it('should render view1 when user navigates to /view1', function() {
+    it('should render beer design when user navigates to /beer_design', function() {
       expect(element('[ng-view] legend').text()).
         toMatch(/Beer Design/);
     });
@@ -29,10 +29,10 @@ describe('my app', function() {
   });
 
 
-  describe('view2', function() {
+  describe('Hop Bill view', function() {
 
     beforeEach(function() {
-      browser().navigateTo('#/view2');
+      browser().navigateTo('#/hop_bill');
     });
 
 

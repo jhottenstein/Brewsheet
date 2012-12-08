@@ -3,16 +3,16 @@
 /* Controllers */
 
 
-function MyCtrl1($scope) {
-  $scope.bu_gu = function() {
+function BeerDesignController($scope) {
+  $scope.buGu = function() {
     var gu = ($scope.og - 1) * 1000;
-    return $scope.ibu / gu;
+    return ($scope.ibu / gu);
   };
   
 }
-//MyCtrl1.$inject = [$scope];
+//BeerDesignController.$inject = [$scope];
 
 
-function MyCtrl2() {
+function HopBillController() {
 }
 //MyCtrl2.$inject = [];
