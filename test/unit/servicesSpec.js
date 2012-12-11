@@ -2,13 +2,22 @@
 
 /* jasmine specs for services go here */
 
-describe('service', function() {
-  beforeEach(module('myApp.services'));
+describe('design service', function() {
+  var design;
 
+  it('should get initial value from design service', function() {
 
-  describe('version', function() {
-    it('should return current version', inject(function(version) {
-      expect(version).toEqual('0.1');
-    }));
+//  module(function($provide) {
+//    $provide.value('design', design);
+//  };
+
+    module('brewsheetApp');
+
+    inject(function(_design_) {
+      design = _design_;
+    });
+
+    expect(design.og).toBeUndefined;
   });
+
 });

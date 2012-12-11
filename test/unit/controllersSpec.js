@@ -1,16 +1,32 @@
 'use strict';
 
-/* jasmine specs for controllers go here */
-
 describe('Beer Design Controller', function(){
+  var design, scope;
 
+  beforeEach(module('brewsheetApp'));
+  beforeEach(module(function($provide) {
+    design = { 
+      og: 1.050,
+      ibu: 25
+    };
+    $provide.value('design', design);
+  }));
+
+  beforeEach(inject(function($controller) {
+    $controller('BeerDesignController', {$scope: scope = {}});
+  }));
+    
   it('should be able to calculate BU/GU', function() {
-    var scope = {};
-    var ctrl = new BeerDesignController(scope);
     scope.ibu = 50;
     scope.og = 1.050;
     expect(scope.buGu()).toBeCloseTo(1); 
   });
+  
+  it('should populate values from design service', function() {
+      expect(scope.og).toBe(1.050);
+      expect(scope.ibu).toBe(25);
+  });
+
 
 });
 

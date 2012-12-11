@@ -3,6 +3,7 @@ basePath = '../../';
 files = [
   'app/lib/angular/angular.js',
   'app/lib/angular/angular-*.js',
+  'app/js/app.js',
   'app/js/**/*.js',
   JASMINE,
   JASMINE_ADAPTER,
