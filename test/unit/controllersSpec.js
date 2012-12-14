@@ -12,8 +12,8 @@ describe('Beer Design Controller', function(){
     $provide.value('design', design);
   }));
 
-  beforeEach(inject(function($controller) {
-    $controller('BeerDesignController', {$scope: scope = {}});
+  beforeEach(inject(function($controller, _$rootScope_) {
+    $controller('BeerDesignController', {$scope: scope = _$rootScope_});
   }));
     
   it('should be able to calculate BU/GU', function() {

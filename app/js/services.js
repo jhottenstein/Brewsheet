@@ -2,13 +2,18 @@
 
 /* Services */
 
-brewsheetApp.factory('design', function (localStorage) {
+brewsheetApp.factory('design', function ($rootScope, localStorage) {
   var key = 'beerDesign';
   var designString = localStorage[key]
   var design = designString ? JSON.parse(designString) : { 
     og : undefined,
     ibu: undefined
   };
+
+  $rootScope.$watch(function() { return design; }, function() {
+    localStorage[key] = JSON.stringify(design);
+  }, true);
+
   return design;
 });
 

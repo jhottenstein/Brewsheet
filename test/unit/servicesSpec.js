@@ -3,24 +3,39 @@
 /* jasmine specs for services go here */
 
 describe('design service', function() {
-  var design, localStorage;
+  var design, localStorage, $rootScope;
 
   beforeEach(module('brewsheetApp'));
 
-  it('should default to undefined', function() {
-    module(function($provide) {
-      localStorage = {
-      };
-  
-      $provide.value('localStorage', localStorage);
+  describe("Empty Local Storage Tests", function() {
+    beforeEach(function() {
+      module(function($provide) {
+        localStorage = {
+        };
+
+        $provide.value('localStorage', localStorage);
+      });
+      inject(function(_design_, _$rootScope_) {
+        design = _design_;
+        $rootScope = _$rootScope_;
+      });
     });
   
-    inject(function(_design_) {
-      design = _design_;
+    it('should default to undefined', function() {
+
+      expect(design.og).toBe(undefined);
+      expect(design.ibu).toBe(undefined);
     });
 
-    expect(design.og).toBe(undefined);
-    expect(design.ibu).toBe(undefined);
+    it('should persist to localStorage', function() {
+      $rootScope.$apply(function() {
+        design.og = 1.020;
+        design.ibu = 40;
+      });
+
+      expect(localStorage.beerDesign).toBe('{"og":1.02,"ibu":40}');
+
+    });
   });
 
   it('should use localStorage value if it exists', function() {
@@ -39,6 +54,7 @@ describe('design service', function() {
     expect(design.og).toBe(1.020);
     expect(design.ibu).toBe(40);
   });
+
 
 
 });
