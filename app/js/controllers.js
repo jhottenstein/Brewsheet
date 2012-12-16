@@ -4,8 +4,8 @@
 brewsheetApp.controller('BeerDesignController',
   function BeerDesignController($scope, design) {
     //Hook up models to design service
-    $scope.og = design.og; 
-    $scope.ibu = design.ibu; 
+    $scope.og = design.og;
+    $scope.ibu = design.ibu;
 
     //figure out how to refactor this
     $scope.$watch(function() { return $scope.og; }, function (ov, nv, scope) {

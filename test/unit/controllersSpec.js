@@ -5,21 +5,21 @@ describe('Beer Design Controller', function(){
 
   beforeEach(module('brewsheetApp'));
   beforeEach(module(function($provide) {
-    design = { 
+    design = {
       og: 1.050,
       ibu: 25
     };
     $provide.value('design', design);
   }));
 
-  beforeEach(inject(function($controller, _$rootScope_) {
-    $controller('BeerDesignController', {$scope: scope = _$rootScope_});
+  beforeEach(inject(function($controller, $rootScope) {
+    $controller('BeerDesignController', {$scope: scope = $rootScope});
   }));
     
   it('should be able to calculate BU/GU', function() {
     scope.ibu = 50;
     scope.og = 1.050;
-    expect(scope.buGu()).toBeCloseTo(1); 
+    expect(scope.buGu()).toBeCloseTo(1);
   });
   
   it('should populate values from design service', function() {

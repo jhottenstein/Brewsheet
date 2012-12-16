@@ -4,8 +4,8 @@
 
 brewsheetApp.factory('design', function ($rootScope, localStorage) {
   var key = 'beerDesign';
-  var designString = localStorage[key]
-  var design = designString ? JSON.parse(designString) : { 
+  var designString = localStorage[key];
+  var design = designString ? JSON.parse(designString) : {
     og : undefined,
     ibu: undefined
   };

@@ -10,7 +10,7 @@ describe('my app', function() {
 
 
   it('should automatically redirect to /view1 when location hash/fragment is empty', function() {
-    expect(browser().location().url()).toBe("/beer_design");
+    expect(browser().location().url()).toBe('/beer_design');
   });
 
 

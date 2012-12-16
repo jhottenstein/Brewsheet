@@ -1,13 +1,12 @@
+/*jshint camelcase:false*/
 'use strict';
-
-/* jasmine specs for services go here */
 
 describe('design service', function() {
   var design, localStorage, $rootScope;
 
   beforeEach(module('brewsheetApp'));
 
-  describe("Empty Local Storage Tests", function() {
+  describe('Empty Local Storage Tests', function() {
     beforeEach(function() {
       module(function($provide) {
         localStorage = {

@@ -1,99 +1,162 @@
-var SUPPORTED_BROWSERS = [
-];
+/*global desc, task, namespace, jake, fail, complete, console, process, require*/
+(function() {
+  "use strict";
+  var SUPPORTED_BROWSERS = [
+  ];
 
-desc("Just test for now");
-task("default", ["test"]);
+  desc("test and lint");
+  task("default", ["test", "lint"]);
 
-desc("Test client code");
-task("test", ["test:single-units", "test:single-e2e"]);
+  var lint = require("./build/lint/lintRunner.js");
+  task("lint", function() {
+    var javascriptFiles = new jake.FileList();
+    javascriptFiles.include("**/*.js");
+    javascriptFiles.exclude("*/lib/**/*.js");
+    javascriptFiles.exclude("scripts/web-server.js");
 
-namespace('test', function() {
-  desc("Single run of all end to end tests");
-  task("single-e2e", function() {
-    testacular(["start", "config/testacular/single-e2e.conf.js"], "Failed", complete);
-    }, {async: true});
+    javascriptFiles.exclude("node_modules");
+    javascriptFiles.exclude("config/testacular");
+    javascriptFiles.toArray();
+    var passed = lint.validateFileList(javascriptFiles, lintOptions(), lintGlobals());
+    if (!passed ) fail("Lint failed");
+  });
 
-  desc("Single run of all unit tests");
-  task("single-units", function() {
-    testacular(["start", "config/testacular/single-units.conf.js"], "Failed", complete);
-    }, {async: true});
-
-//desc("Start Testacular server for unit testing");
-//task("start-e2e", function() {
-//  testacular(["start", "config/testacular-e2e.conf.js"], "Could not start Testacular e2e server", complete);
-//  }, {async: true});
-
-  desc("Start Testacular server for unit testing");
-  task("start", function() {
-    testacular(["start", "config/testacular/units.conf.js"], "Could not start Testacular unit server", complete);
-    }, {async: true});
+  function lintOptions() {
+    var options = {
+    //ENFORCING
+      bitwise:true,
+      camelcase: true,
+      curly:false,
+      eqeqeq:true,
+      forin:true,
+      immed:true,
+      latedef:true,
+      newcap:true,
+      noarg:true,
+      noempty:true,
+      nonew:true,
+      quotmark: true,
+      regexp:true,
+      undef:true,
+      //unused:true,
+      trailing:true,
+    //RELAXING
+      globalstrict:true,
+    //ENVIRONMENTS
+      browser:true
+    };
+    return options;
+  }
+  function lintGlobals() {
+    var globals = {
+      // jasmine globals
+      describe: false,
+      beforeEach: false,
+      it: false,
+      expect: false,
+      inject: false,
+      module: false,
+      //angular e2e globals
+      browser: false,
+      input: false,
+      element: false,
+      //app globals
+      brewsheetApp: true
+    };
+    return globals;
+  }
 
   desc("Test client code");
-  task("units", function() {
-    //var config = {"runnerPort": 9110 };
-    var config = {};
+  task("test", ["test:single-units", "test:single-e2e"]);
 
-    var output = "";
-    var oldStdout = process.stdout.write;
-    process.stdout.write = function(data) {
-      output += data;
-      oldStdout.apply(this, arguments);
-    };
+  namespace("test", function() {
+    desc("Single run of all end to end tests");
+    task("single-e2e", function() {
+      testacular(["start", "config/testacular/single-e2e.conf.js"], "Failed", complete);
+    }, {async: true});
 
-    require("testacular/lib/runner").run(config, function(exitCode) {
-      process.stdout.write = oldStdout;
+    desc("Single run of all unit tests");
+    task("single-units", function() {
+      testacular(["start", "config/testacular/single-units.conf.js"], "Failed", complete);
+    }, {async: true});
 
-      if (exitCode) fail("Client tests failed (to start server, run 'jake test:start')");
-      var browserMissing = false;
-      SUPPORTED_BROWSERS.forEach(function(browser) {
-        browserMissing = checkIfBrowserTested(browser, output) || browserMissing;
+    //desc("Start Testacular server for unit testing");
+    //task("start-e2e", function() {
+    //  testacular(["start", "config/testacular-e2e.conf.js"], "Could not start Testacular e2e server", complete);
+    //  }, {async: true});
+
+    desc("Start Testacular server for unit testing");
+    task("start", function() {
+      testacular(["start", "config/testacular/units.conf.js"], "Could not start Testacular unit server", complete);
+    }, {async: true});
+
+    desc("Test client code");
+    task("units", function() {
+      //var config = {"runnerPort": 9110 };
+      var config = {};
+
+      var output = "";
+      var oldStdout = process.stdout.write;
+      process.stdout.write = function(data) {
+        output += data;
+        oldStdout.apply(this, arguments);
+      };
+
+      require("testacular/lib/runner").run(config, function(exitCode) {
+        process.stdout.write = oldStdout;
+
+        if (exitCode) fail("Client tests failed (to start server, run 'jake test:start')");
+        var browserMissing = false;
+        SUPPORTED_BROWSERS.forEach(function(browser) {
+          browserMissing = checkIfBrowserTested(browser, output) || browserMissing;
+        });
+        if (browserMissing && !process.env.loose) fail("Did not test all supported browsers (use 'loose=true' to suppress error)");
+        if (output.indexOf("TOTAL: 0 SUCCESS") !== -1) fail("Client tests did not run!");
+
+        complete();
       });
-      if (browserMissing && !process.env.loose) fail("Did not test all supported browsers (use 'loose=true' to suppress error)");
-      if (output.indexOf("TOTAL: 0 SUCCESS") !== -1) fail("Client tests did not run!");
+    }, {async: true});
+  });
 
-      complete();
-    });
-  }, {async: true});
-});
+  function testacular(args, errorMessage, callback) {
+    args.unshift("node_modules/testacular/bin/testacular");
+    sh("node", args, errorMessage, callback);
+  }
 
-function testacular(args, errorMessage, callback) {
-  args.unshift("node_modules/testacular/bin/testacular");
-  sh("node", args, errorMessage, callback);
-}
+  function sh(command, args, errorMessage, callback) {
+    console.log("> " + command + " " + args.join(" "));
 
-function sh(command, args, errorMessage, callback) {
-  console.log("> " + command + " " + args.join(" "));
+    // Not using jake.createExec as it adds extra line-feeds into output as of v0.3.7
+    var child = require("child_process").spawn(command, args, { stdio: "pipe" });
 
-  // Not using jake.createExec as it adds extra line-feeds into output as of v0.3.7
-  var child = require("child_process").spawn(command, args, { stdio: "pipe" });
-
-  // redirect stdout
-  var stdout = "";
-  child.stdout.setEncoding("utf8");
-  child.stdout.on("data", function(chunk) {
+    // redirect stdout
+    var stdout = "";
+    child.stdout.setEncoding("utf8");
+    child.stdout.on("data", function(chunk) {
       stdout += chunk;
       process.stdout.write(chunk);
-      });
+    });
 
-  // redirect stderr
-  var stderr = "";
-  child.stderr.setEncoding("utf8");
-  child.stderr.on("data", function(chunk) {
+    // redirect stderr
+    var stderr = "";
+    child.stderr.setEncoding("utf8");
+    child.stderr.on("data", function(chunk) {
       stderr += chunk;
       process.stderr.write(chunk);
-      });
+    });
 
-  // handle process exit
-  child.on("exit", function(exitCode) {
+    // handle process exit
+    child.on("exit", function(exitCode) {
       if (exitCode !== 0) fail(errorMessage);
-      });
-  child.on("close", function() {      // 'close' event can happen after 'exit' event
+    });
+    child.on("close", function() {      // 'close' event can happen after 'exit' event
       callback(stdout, stderr);
-      });
-}      
+    });
+  }
 
-function checkIfBrowserTested(browser, output) {
-  var missing = output.indexOf(browser + ": Executed") === -1;
-  if (missing) console.log(browser + " was not tested!");
-  return missing;
-}
+  function checkIfBrowserTested(browser, output) {
+    var missing = output.indexOf(browser + ": Executed") === -1;
+    if (missing) console.log(browser + " was not tested!");
+    return missing;
+  }
+}());
