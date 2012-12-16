@@ -2,44 +2,24 @@
 
 /* http://docs.angularjs.org/guide/dev_guide.e2e-testing */
 
-describe('my app', function() {
+describe('Brewsheet Routing', function() {
 
   beforeEach(function() {
     browser().navigateTo('../../app/index.html');
   });
 
-
-  it('should automatically redirect to /view1 when location hash/fragment is empty', function() {
+  it('should automatically redirect to /beer_design when location hash/fragment is empty', function() {
     expect(browser().location().url()).toBe('/beer_design');
   });
 
-
-  describe('Beer Design view', function() {
-
-    beforeEach(function() {
-      browser().navigateTo('#/beer_design');
-    });
-
-
-    it('should render beer design when user navigates to /beer_design', function() {
-      expect(element('[ng-view] legend').text()).
-        toMatch(/Beer Design/);
-    });
-
+  it('should render Beer Design when user navigates to /beer_design', function() {
+    browser().navigateTo('#/beer_design');
+    expect(element('[ng-view] legend').text()).toMatch(/Beer Design/);
   });
 
-
-  describe('Hop Bill view', function() {
-
-    beforeEach(function() {
-      browser().navigateTo('#/hop_bill');
-    });
-
-
-    it('should render view2 when user navigates to /view2', function() {
-      expect(element('[ng-view] legend').text()).
-        toMatch(/Hop Bill/);
-    });
-
+  it('should render Hop Bill when user navigates to /hop_bill', function() {
+    browser().navigateTo('#/hop_bill');
+    expect(element('[ng-view] legend').text()).toMatch(/Hop Bill/);
   });
+
 });

@@ -9,71 +9,21 @@
 
   var lint = require("./build/lint/lintRunner.js");
   task("lint", function() {
-    var javascriptFiles = new jake.FileList();
-    javascriptFiles.include("**/*.js");
-    javascriptFiles.exclude("*/lib/**/*.js");
-    javascriptFiles.exclude("scripts/web-server.js");
-
-    javascriptFiles.exclude("node_modules");
-    javascriptFiles.exclude("config/testacular");
-    javascriptFiles.toArray();
-    var passed = lint.validateFileList(javascriptFiles, lintOptions(), lintGlobals());
+    var passed = lint.validateFileList(javascriptFiles(), lintOptions(), lintGlobals());
     if (!passed ) fail("Lint failed");
   });
-
-  function lintOptions() {
-    var options = {
-    //ENFORCING
-      bitwise:true,
-      camelcase: true,
-      curly:false,
-      eqeqeq:true,
-      forin:true,
-      immed:true,
-      latedef:true,
-      newcap:true,
-      noarg:true,
-      noempty:true,
-      nonew:true,
-      quotmark: true,
-      regexp:true,
-      undef:true,
-      //unused:true,
-      trailing:true,
-    //RELAXING
-      globalstrict:true,
-    //ENVIRONMENTS
-      browser:true
-    };
-    return options;
-  }
-  function lintGlobals() {
-    var globals = {
-      // jasmine globals
-      describe: false,
-      beforeEach: false,
-      it: false,
-      expect: false,
-      inject: false,
-      module: false,
-      //angular e2e globals
-      browser: false,
-      input: false,
-      element: false,
-      //app globals
-      brewsheetApp: true
-    };
-    return globals;
-  }
 
   desc("Test client code");
   task("test", ["test:single-units", "test:single-e2e"]);
 
   namespace("test", function() {
+
     desc("Single run of all end to end tests");
     task("single-e2e", function() {
       testacular(["start", "config/testacular/single-e2e.conf.js"], "Failed", complete);
     }, {async: true});
+
+    task("e2e", ["single-e2e"]);
 
     desc("Single run of all unit tests");
     task("single-units", function() {
@@ -159,4 +109,62 @@
     if (missing) console.log(browser + " was not tested!");
     return missing;
   }
+
+  function javascriptFiles() {
+    var jsFiles = new jake.FileList();
+    jsFiles.include("**/*.js");
+    jsFiles.exclude("*/lib/**/*.js");
+    jsFiles.exclude("scripts/web-server.js");
+
+    jsFiles.exclude("node_modules");
+    jsFiles.exclude("config/testacular");
+    return jsFiles.toArray();
+  }
+
+  function lintOptions() {
+    var options = {
+    //ENFORCING
+      bitwise:true,
+      camelcase: true,
+      curly:false,
+      eqeqeq:true,
+      forin:true,
+      immed:true,
+      latedef:true,
+      newcap:true,
+      noarg:true,
+      noempty:true,
+      nonew:true,
+      quotmark: true,
+      regexp:true,
+      undef:true,
+      //unused:true,
+      trailing:true,
+    //RELAXING
+      globalstrict:true,
+    //ENVIRONMENTS
+      browser:true
+    };
+    return options;
+  }
+  function lintGlobals() {
+    var globals = {
+      // jasmine globals
+      describe: false,
+      beforeEach: false,
+      it: false,
+      expect: false,
+      inject: false,
+      module: false,
+      //angular e2e globals
+      browser: false,
+      input: false,
+      element: false,
+      //app globals
+      brewsheetApp: true
+    };
+    return globals;
+  }
+
+
 }());
