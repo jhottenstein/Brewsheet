@@ -14,15 +14,8 @@ MMFs
 - Calculate Hop Bill
 
 Stories
-* Capture Hop prerequisites
+= Capture Hop prerequisites
 - Capture desired hop type
 - Calculate bittering hop additions
 
 Tasks
-= Create Design page to capture Batch Size, OG, IBU
-= Show BU/GU Ratio
-= Read values from local storage
-= Add linting
-= Persist values to local storage
-- Print values on Hop page
-
