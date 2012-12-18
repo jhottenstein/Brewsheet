@@ -22,25 +22,30 @@ describe('design service', function() {
   
     it('should default to undefined', function() {
 
+      expect(design.name).toBe(undefined);
+      expect(design.style).toBe(undefined);
       expect(design.og).toBe(undefined);
       expect(design.ibu).toBe(undefined);
+      expect(design.srm).toBe(undefined);
     });
 
     it('should persist to localStorage', function() {
       $rootScope.$apply(function() {
+        design.name = 'Jasper';
+        design.style = 'Sarsaparilla';
         design.og = 1.020;
-        design.ibu = 40;
+        design.ibu = 10;
+        design.srm = 20;
       });
 
-      expect(localStorage.beerDesign).toBe('{"og":1.02,"ibu":40}');
-
+      expect(localStorage.beerDesign).toBe('{"name":"Jasper","style":"Sarsaparilla","og":1.02,"ibu":10,"srm":20}');
     });
   });
 
   it('should use localStorage value if it exists', function() {
     module(function($provide) {
       localStorage = {
-        beerDesign: '{"og":1.020,"ibu":40}'
+        beerDesign: '{"name":"Jasper","style":"Sarsaparilla","og":1.02,"ibu":10,"srm":20}'
       };
 
       $provide.value('localStorage', localStorage);
@@ -50,10 +55,10 @@ describe('design service', function() {
       design = _design_;
     });
 
+    expect(design.name).toBe('Jasper');
+    expect(design.style).toBe('Sarsaparilla');
     expect(design.og).toBe(1.020);
-    expect(design.ibu).toBe(40);
+    expect(design.ibu).toBe(10);
+    expect(design.srm).toBe(20);
   });
-
-
-
 });

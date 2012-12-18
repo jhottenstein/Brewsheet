@@ -1,13 +1,14 @@
 'use strict';
 
-/* Services */
-
 brewsheetApp.factory('design', function ($rootScope, localStorage) {
   var key = 'beerDesign';
   var designString = localStorage[key];
   var design = designString ? JSON.parse(designString) : {
+    name : undefined,
+    style : undefined,
     og : undefined,
-    ibu: undefined
+    ibu: undefined,
+    srm : undefined
   };
 
   $rootScope.$watch(function() { return design; }, function() {
@@ -16,6 +17,3 @@ brewsheetApp.factory('design', function ($rootScope, localStorage) {
 
   return design;
 });
-
-// Hook up our localStorage service to the browser's localStorage
-brewsheetApp.value('localStorage', window.localStorage);

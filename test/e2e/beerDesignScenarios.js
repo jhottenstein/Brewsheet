@@ -21,4 +21,27 @@ describe('Beer Design Page', function() {
     expect(element('#bu_gu').html()).toBe('0.86');
   });
 
+  it('should keep design values after moving to another tab', function() {
+    var name = input('name'),
+        style = input('style'),
+        og = input('og'),
+        ibu = input('ibu'),
+        srm = input('srm');
+
+    name.enter('Crab Creek Amber');
+    style.enter('American Amber Ale');
+    og.enter('1.070');
+    ibu.enter('60');
+    srm.enter(12);
+
+    browser().navigateTo('#/hopBill');
+    browser().navigateTo('#/beerDesign');
+
+    expect(name.val()).toBe('Crab Creek Amber');
+    expect(style.val()).toBe('American Amber Ale');
+    expect(og.val()).toBe('1.070');
+    expect(ibu.val()).toBe('60');
+    expect(srm.val()).toBe('12');
+  });
+
 });
