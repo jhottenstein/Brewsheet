@@ -15,7 +15,9 @@ MMFs
 
 Stories
 = Capture Hop prerequisites
-- Capture desired hop type
+* Capture desired hop type
 - Calculate bittering hop additions
 
 Tasks
+= Calculate amount of hops to add based upon ibu
+* Provide Input elements for hop name, aa%, boil time, ibus_added, amount

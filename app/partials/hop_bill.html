@@ -5,3 +5,23 @@
   <label for="ibu">Bitterness</label>
   <span id="ibu">{{ibu}}</span>
 </fieldset>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Amount</th>
+      <th>Alpha Acid %</th>
+      <th>Boil Time</th>
+      <th>IBUs</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Cascade</td>
+      <td>{{amount().toFixed(1)}}</td>
+      <td><input id="alphaAcid" ng-model="alphaAcid"></td>
+      <td>60</td>
+      <td>35</td>
+    </tr>
+  </tbody>
+</table>
