@@ -33,14 +33,20 @@ describe('Hop Bill Page', function() {
     input('ibu').enter('35');
 
     browser().navigateTo('../../app/index.html#/hop_bill');
-    input('alphaAcid').enter('6.3');
+    var name = 'hopper';
+    input('hopName').enter(name);
+    var alphaAcidPercent = '6.3';
+    input('alphaAcid').enter(alphaAcidPercent);
+    var boilTime = '75';
+    input('boilTime').enter(boilTime);
 
     expect(element('tbody tr td', 'table columns').count()).toBe(5);
-//  expect(element('tbody tr td:eq(0)', 'Name value').html()).toBe('Name');
+    expect(element('tbody tr td:eq(0) input', 'Name value').val()).toBe(name);
     expect(element('tbody tr td:eq(1)', 'Amount value').html()).toBe('1.9');
-//  expect(element('tbody tr td:eq(2)', 'Alpha Acid % value').html()).toBe('Alpha Acid %');
-//  expect(element('tbody tr td:eq(3)', 'Boil Time value').html()).toBe('Boil Time');
-//  expect(element('tbody tr td:eq(4)', 'IBUs value').html()).toBe('IBUs');
+    expect(element('tbody tr td:eq(2) input', 'Alpha Acid % value').val()).toBe(alphaAcidPercent);
+    expect(element('tbody tr td:eq(3) input', 'Boil Time value').val()).toBe(boilTime);
+    expect(element('tbody tr td:eq(4)', 'IBUs value').html()).toBe('35');
+
   });
 
 });

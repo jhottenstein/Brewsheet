@@ -20,4 +20,5 @@ Stories
 
 Tasks
 = Calculate amount of hops to add based upon ibu
-* Provide Input elements for hop name, aa%, boil time, ibus_added, amount
+= Provide Input elements for hop name, aa%, boil time, ibus_added, amount
+* Save name, aa%, boil time to localStorage

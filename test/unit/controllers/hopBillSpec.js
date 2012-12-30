@@ -23,7 +23,10 @@ describe('Hop Bill Controller', function(){
   it('should calculate amount of bittering hops needed', function () {
     scope.alphaAcid = 6.3;
 //    scope.boilTime = 60;
-
     expect(scope.amount()).toBeCloseTo(1.9, 1);
+  });
+  it('should calculate IBUs provided from bittering hops', function () {
+    scope.alphaAcid = 6.3;
+    expect(scope.ibus()).toBeCloseTo(35, 0);
   });
 });
