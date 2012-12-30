@@ -7,20 +7,24 @@ brewsheetApp.controller('HopBillController',
 
     $scope.amount = function() {
       var ibusNeeded = design.ibu,
+          alphaAcid = $scope.alphaAcid,
           utilization = 24,             //calculate from boil time
           magicNumber = 0.7489,         //conversion from oz/gal to mg/L
           batchVolume = 6,              //input on beer design
           boilGravityCorrection = 1.03, //calculate from beer design
-          amountNeeded = batchVolume * boilGravityCorrection * ibusNeeded / ($scope.alphaAcid * utilization * 0.7489);
+          amountNeeded = batchVolume * boilGravityCorrection * ibusNeeded / (alphaAcid * utilization * magicNumber);
       return amountNeeded;
     };
+
     $scope.ibus = function() {
-      var utilization = 24,             //calculate from boil time
+      var amount = $scope.amount(),
+          alphaAcid = $scope.alphaAcid,
+          utilization = 24,             //calculate from boil time
           magicNumber = 0.7489,         //?
           batchVolume = 6,              //input on beer design
-          boilGravityCorrection = 1.03; //calculate from beer design
-      return ($scope.amount() * $scope.alphaAcid * utilization * magicNumber) / (batchVolume * boilGravityCorrection);
-      
+          boilGravityCorrection = 1.03, //calculate from beer design
+          ibu = (amount * alphaAcid * utilization * magicNumber) / (batchVolume * boilGravityCorrection);
+      return ibu;
     };
     
   }

@@ -30,7 +30,8 @@ describe('Hop Bill Page', function() {
 
   it('should bittering hop amount from design and alpha acid %', function() {
     browser().navigateTo('../../app/index.html#/beer_design');
-    input('ibu').enter('35');
+    var ibu = '35';
+    input('ibu').enter(ibu);
 
     browser().navigateTo('../../app/index.html#/hop_bill');
     var name = 'hopper';
@@ -45,7 +46,7 @@ describe('Hop Bill Page', function() {
     expect(element('tbody tr td:eq(1)', 'Amount value').html()).toBe('1.9');
     expect(element('tbody tr td:eq(2) input', 'Alpha Acid % value').val()).toBe(alphaAcidPercent);
     expect(element('tbody tr td:eq(3) input', 'Boil Time value').val()).toBe(boilTime);
-    expect(element('tbody tr td:eq(4)', 'IBUs value').html()).toBe('35');
+    expect(element('tbody tr td:eq(4)', 'IBUs value').html()).toBe(ibu);
 
   });
 
