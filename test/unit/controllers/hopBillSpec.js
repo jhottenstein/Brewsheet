@@ -1,3 +1,4 @@
+/*global Hop*/
 'use strict';
 
 describe('Hop Bill Controller', function(){
@@ -20,13 +21,17 @@ describe('Hop Bill Controller', function(){
     expect(scope.ibu).toBe(35);
   });
 
-  it('should calculate amount of bittering hops needed', function () {
-    scope.alphaAcid = 6.3;
-//    scope.boilTime = 60;
-    expect(scope.amount()).toBeCloseTo(1.9, 1);
+  it('should have a bittering hop', function () {
+    expect(scope.bitteringHop instanceof Hop).toBeTruthy();
   });
-  it('should calculate IBUs provided from bittering hops', function () {
-    scope.alphaAcid = 6.3;
-    expect(scope.ibus()).toBeCloseTo(35, 0);
+
+  it('should have flavor hops', function () {
+    expect(scope.flavorHops instanceof Array).toBeTruthy();
+    expect(scope.flavorHops[0] instanceof Hop).toBeTruthy();
+  });
+
+  it('should calculate amount of bittering hops needed', function () {
+    scope.bitteringHop.alphaAcid = 6.3;
+    expect(scope.bitteringHop.getAmount()).toBeCloseTo(1.9, 1);
   });
 });

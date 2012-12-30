@@ -17,11 +17,18 @@
   </thead>
   <tbody>
     <tr>
-      <td><input id="hopName" ng-model="hopName"></td>
-      <td>{{amount().toFixed(1)}}</td>
-      <td><input id="alphaAcid" ng-model="alphaAcid"></td>
-      <td><input id="boilTime" ng-model="boilTime"></td>
-      <td>{{ibus().toFixed(0)}}</td>
+      <td><input id="hopName" ng-model="bitteringHop.name"></td>
+      <td>{{bitteringHop.getAmount().toFixed(1)}}</td>
+      <td><input id="alphaAcid" ng-model="bitteringHop.alphaAcid"></td>
+      <td><input id="boilTime" ng-model="bitteringHop.boilTime"></td>
+      <td>{{bitteringHop.ibus().toFixed(0)}}</td>
+    </tr>
+    <tr ng-repeat="hop in flavorHops">
+      <td><input ng-model="hop.name"></td>
+      <td><input ng-model="hop.amount"></td>
+      <td><input ng-model="hop.alphaAcid"></td>
+      <td><input ng-model="hop.boilTime"></td>
+      <td>{{hop.ibus().toFixed(0)}}</td>
     </tr>
   </tbody>
 </table>

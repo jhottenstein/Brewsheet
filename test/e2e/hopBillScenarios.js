@@ -4,20 +4,24 @@
 
 describe('Hop Bill Page', function() {
 
+  var og = '2',
+      ibu = '35';
+
   beforeEach(function() {
+    browser().navigateTo('../../app/index.html#/beer_design');
+    input('og').enter(og);
+    input('ibu').enter(ibu);
+
+    browser().navigateTo('../../app/index.html#/hop_bill');
   });
 
   it('should transfer og/ibu from beer design page', function() {
-    browser().navigateTo('../../app/index.html#/beer_design');
-    input('og').enter('2');
-    input('ibu').enter('1000');
-    browser().navigateTo('../../app/index.html#/hop_bill');
-
-    expect(element('#og').html()).toBe('2');
-    expect(element('#ibu').html()).toBe('1000');
+    expect(element('#og').html()).toBe(og);
+    expect(element('#ibu').html()).toBe(ibu);
 
   });
 
+  //Doesn't require beforeEach - being lazy
   it('should have a hop bill table header', function() {
     browser().navigateTo('../../app/index.html#/hop_bill');
     expect(element('thead tr th', 'table headers').count()).toBe(5);
@@ -28,25 +32,37 @@ describe('Hop Bill Page', function() {
     expect(element('thead tr th:eq(4)', 'IBUs header').html()).toBe('IBUs');
   });
 
-  it('should bittering hop amount from design and alpha acid %', function() {
-    browser().navigateTo('../../app/index.html#/beer_design');
-    var ibu = '35';
-    input('ibu').enter(ibu);
-
-    browser().navigateTo('../../app/index.html#/hop_bill');
+  it('should calculate bittering hop amount from design and alpha acid %', function() {
     var name = 'hopper';
-    input('hopName').enter(name);
+    input('bitteringHop.name').enter(name);
     var alphaAcidPercent = '6.3';
-    input('alphaAcid').enter(alphaAcidPercent);
+    input('bitteringHop.alphaAcid').enter(alphaAcidPercent);
     var boilTime = '75';
-    input('boilTime').enter(boilTime);
+    input('bitteringHop.boilTime').enter(boilTime);
 
-    expect(element('tbody tr td', 'table columns').count()).toBe(5);
+    expect(element('tbody tr:eq(0) td', 'table columns').count()).toBe(5);
     expect(element('tbody tr td:eq(0) input', 'Name value').val()).toBe(name);
     expect(element('tbody tr td:eq(1)', 'Amount value').html()).toBe('1.9');
     expect(element('tbody tr td:eq(2) input', 'Alpha Acid % value').val()).toBe(alphaAcidPercent);
     expect(element('tbody tr td:eq(3) input', 'Boil Time value').val()).toBe(boilTime);
     expect(element('tbody tr td:eq(4)', 'IBUs value').html()).toBe(ibu);
+
+  });
+
+  it('should have a flavor hop row', function() {
+    var name = 'hopper';
+    input('bitteringHop.name').enter(name);
+    var alphaAcidPercent = '6.3';
+    input('bitteringHop.alphaAcid').enter(alphaAcidPercent);
+    var boilTime = '75';
+    input('bitteringHop.boilTime').enter(boilTime);
+
+    expect(element('tbody tr', 'table columns').count()).toBe(2);
+//  expect(element('tbody tr td:eq(0) input', 'Name value').val()).toBe(name);
+//  expect(element('tbody tr td:eq(1)', 'Amount value').html()).toBe('1.9');
+//  expect(element('tbody tr td:eq(2) input', 'Alpha Acid % value').val()).toBe(alphaAcidPercent);
+//  expect(element('tbody tr td:eq(3) input', 'Boil Time value').val()).toBe(boilTime);
+//  expect(element('tbody tr td:eq(4)', 'IBUs value').html()).toBe(ibu);
 
   });
 
