@@ -11,13 +11,18 @@ That is what this brewsheet should assist with.
 
 
 MMFs
-- Calculate Hop Bill
+* Calculate Hop Bill
+- Calculate Malt Bill
 
 Stories
 = Capture Hop prerequisites
 = Calculate bittering hop additions
-* Allow one flavor hop addition
-  * Create table row
+= Allow one flavor hop addition
+  = Create table row
+  = Calculate ibus
+  = Adjust bittering hop needed
+- Allow multiple flavor hops
+  - Create table rows
   - Calculate ibus
   - Adjust bittering hop needed
  

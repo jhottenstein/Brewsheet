@@ -31,7 +31,8 @@ describe('Hop Bill Controller', function(){
   });
 
   it('should calculate amount of bittering hops needed', function () {
+    scope.flavorHops[0].amount = 1;
     scope.bitteringHop.alphaAcid = 6.3;
-    expect(scope.bitteringHop.getAmount()).toBeCloseTo(1.9, 1);
+    expect(scope.bitteringHop.getAmount()).toBeCloseTo(0.8, 1);
   });
 });
