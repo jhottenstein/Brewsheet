@@ -161,6 +161,7 @@
       input: false,
       element: false,
       //app globals
+      angular: false,
       brewsheetApp: true
     };
     return globals;

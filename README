@@ -21,10 +21,14 @@ Stories
   = Create table row
   = Calculate ibus
   = Adjust bittering hop needed
-- Allow multiple flavor hops
-  - Create table rows
-  - Calculate ibus
-  - Adjust bittering hop needed
+= Allow multiple flavor hops
+  = Create table rows
+  = Calculate ibus
+  = Adjust bittering hop needed
+  - Refactor hop collection
+  - create e2e runner
+  - Remove default bittering hop
+  - Make hop fields required before submit
  
 - Capture desired hop type
   - Save name, aa%, boil time to localStorage

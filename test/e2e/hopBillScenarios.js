@@ -38,8 +38,6 @@ describe('Hop Bill Page', function() {
     var boilTime = '75';
     input('bitteringHop.boilTime').enter(boilTime);
 
-    input('hop.amount').enter('0');
-
     expect(element('tbody tr:eq(0) td', 'table columns').count()).toBe(5);
     expect(element('tbody tr td:eq(0) input', 'Name value').val()).toBe(name);
     expect(element('tbody tr td:eq(1)', 'Amount value').html()).toBe('1.9');
@@ -51,15 +49,18 @@ describe('Hop Bill Page', function() {
 
   it('should have a flavor hop row', function() {
     var name = 'flavor hopper';
-    input('hop.name').enter(name);
+    input('newHop.name').enter(name);
     var amount = '3.0';
-    input('hop.amount').enter(amount);
+    input('newHop.amount').enter(amount);
     var alphaAcidPercent = '2.3';
-    input('hop.alphaAcid').enter(alphaAcidPercent);
+    input('newHop.alphaAcid').enter(alphaAcidPercent);
     var boilTime = '20';
-    input('hop.boilTime').enter(boilTime);
+    input('newHop.boilTime').enter(boilTime);
 
-    expect(element('tbody tr', 'table columns').count()).toBe(2);
+    element('input[type="Submit"]').click();
+
+    expect(element('tbody tr', 'table rows').count()).toBe(3);
+
     expect(element('tbody tr:eq(1) td:eq(0) input', 'Name value').val()).toBe(name);
     expect(element('tbody tr:eq(1) td:eq(1) input', 'Amount value').val()).toBe(amount);
     expect(element('tbody tr:eq(1) td:eq(2) input', 'Alpha Acid % value').val()).toBe(alphaAcidPercent);
@@ -67,6 +68,19 @@ describe('Hop Bill Page', function() {
     expect(element('tbody tr:eq(1) td:eq(4)', 'IBUs value').html()).toBe('20');
 
   });
+
+  it('should have a flavor hop placeholder row', function() {
+    expect(element('tbody tr', 'table rows').count()).toBe(2);
+  });
+
+  it('should reset the new hop values when the form is submitted', function() {
+    input('newHop.name').enter('newbie');
+
+    expect(element('tbody tr:last td:eq(0) input', 'submitted hop name').val()).toBe('newbie');
+    element('input[type="Submit"]').click();
+    expect(element('tbody tr:last td:eq(0) input', 'new hop name').val()).toBe('');
+  });
+
 
   it('should adjust bittering hop due to flavor hop addition', function() {
     var name = 'hopper';
@@ -76,10 +90,12 @@ describe('Hop Bill Page', function() {
     var boilTime = '75';
     input('bitteringHop.boilTime').enter(boilTime);
 
-    input('hop.name').enter('flavor hopper');
-    input('hop.amount').enter('3.0');
-    input('hop.alphaAcid').enter('2.3');
-    input('hop.boilTime').enter('20');
+    input('newHop.name').enter('flavor hopper');
+    input('newHop.amount').enter('3.0');
+    input('newHop.alphaAcid').enter('2.3');
+    input('newHop.boilTime').enter('20');
+
+    element('input[type="Submit"]').click();
 
     expect(element('tbody tr td:eq(0) input', 'Name value').val()).toBe(name);
     expect(element('tbody tr td:eq(1)', 'Amount value').html()).toBe('0.8');

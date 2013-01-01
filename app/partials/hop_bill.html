@@ -33,5 +33,15 @@
       <td><input ng-model="hop.boilTime"></td>
       <td>{{hop.ibus().toFixed(0)}}</td>
     </tr>
+    <tr>
+      <form ng-submit="addHop()">
+        <th>Flavor/Aroma</th>
+        <td><input placeholder="Name" ng-model="newHop.name"></td>
+        <td><input placeholder="Amount" ng-model="newHop.amount"></td>
+        <td><input placeholder="Alpha Acid" ng-model="newHop.alphaAcid"></td>
+        <td><input placeholder="Boil Time" ng-model="newHop.boilTime"></td>
+        <td><input type="submit"></td>
+      </form>
+    </tr>
   </tbody>
 </table>
