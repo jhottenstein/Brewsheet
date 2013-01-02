@@ -8,9 +8,10 @@ files = [
 
 autoWatch = false;
 
-browsers = ['Chrome', 'Firefox', 'Safari'];
+port = 9898;
+runnerPort = 2660;
 
-singleRun = true;
+//browsers = ['Chrome'];
 
 proxies = {
   '/': 'http://localhost/~ohottenstein/brew/'

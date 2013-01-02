@@ -1,47 +1,47 @@
 <fieldset id="hop_bill" class="">
   <legend>Hop Bill</legend>
-  <label for="og">Original Gravity</label>
+  <label>Original Gravity</label>
   <span id="og">{{og}}</span>
-  <label for="ibu">Bitterness</label>
+  <label>Bitterness</label>
   <span id="ibu">{{ibu}}</span>
 </fieldset>
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th>Name</th>
-      <th>Amount</th>
-      <th>Alpha Acid %</th>
-      <th>Boil Time</th>
-      <th>IBUs</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Bittering</th>
-      <td><input id="hopName" ng-model="bitteringHop.name"></td>
-      <td>{{bitteringHop.getAmount().toFixed(1)}}</td>
-      <td><input id="alphaAcid" ng-model="bitteringHop.alphaAcid"></td>
-      <td><input id="boilTime" ng-model="bitteringHop.boilTime"></td>
-      <td>{{bitteringHop.ibus().toFixed(0)}}</td>
-    </tr>
-    <tr ng-repeat="hop in flavorHops">
-      <th>Flavor/Aroma</th>
-      <td><input ng-model="hop.name"></td>
-      <td><input ng-model="hop.amount"></td>
-      <td><input ng-model="hop.alphaAcid"></td>
-      <td><input ng-model="hop.boilTime"></td>
-      <td>{{hop.ibus().toFixed(0)}}</td>
-    </tr>
-    <tr>
-      <form ng-submit="addHop()">
+<form id="newHopForm" data-ng-submit="addHop()">
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Amount</th>
+        <th>Alpha Acid %</th>
+        <th>Boil Time</th>
+        <th>IBUs</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>Bittering</th>
+        <td><input id="hopName" ng-model="bitteringHop.name"></td>
+        <td>{{bitteringHop.getAmount().toFixed(1)}}</td>
+        <td><input id="alphaAcid" ng-model="bitteringHop.alphaAcid"></td>
+        <td><input id="boilTime" ng-model="bitteringHop.boilTime"></td>
+        <td>{{bitteringHop.ibus().toFixed(0)}}</td>
+      </tr>
+      <tr data-ng-repeat="hop in flavorHops">
+        <th>Flavor/Aroma</th>
+        <td><input ng-model="hop.name"></td>
+        <td><input ng-model="hop.amount"></td>
+        <td><input ng-model="hop.alphaAcid"></td>
+        <td><input ng-model="hop.boilTime"></td>
+        <td>{{hop.ibus().toFixed(0)}}</td>
+      </tr>
+      <tr>
         <th>Flavor/Aroma</th>
         <td><input placeholder="Name" ng-model="newHop.name"></td>
         <td><input placeholder="Amount" ng-model="newHop.amount"></td>
         <td><input placeholder="Alpha Acid" ng-model="newHop.alphaAcid"></td>
         <td><input placeholder="Boil Time" ng-model="newHop.boilTime"></td>
         <td><input type="submit"></td>
-      </form>
-    </tr>
-  </tbody>
-</table>
+      </tr>
+    </tbody>
+  </table>
+</form>

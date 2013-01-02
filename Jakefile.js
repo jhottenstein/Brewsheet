@@ -23,7 +23,6 @@
       testacular(["start", "config/testacular/single-e2e.conf.js"], "Failed", complete);
     }, {async: true});
 
-    task("e2e", ["single-e2e"]);
 
     desc("Single run of all unit tests");
     task("single-units", function() {
@@ -35,15 +34,22 @@
     //  testacular(["start", "config/testacular-e2e.conf.js"], "Could not start Testacular e2e server", complete);
     //  }, {async: true});
 
-    desc("Start Testacular server for unit testing");
-    task("start", function() {
-      testacular(["start", "config/testacular/units.conf.js"], "Could not start Testacular unit server", complete);
-    }, {async: true});
+    desc("Start Testacular servers for unit and e2e testing");
+    task("start", ["start-units", "start-e2e"]);
 
-    desc("Test client code");
-    task("units", function() {
-      //var config = {"runnerPort": 9110 };
-      var config = {};
+    desc("Start Testacular server for e2e testing");
+    task("start-e2e", function() {
+      testacular(["start", "config/testacular/e2e.conf.js"], "Could not start Testacular e2e server", complete);
+    });
+
+    desc("Start Testacular server for unit testing");
+    task("start-units", function() {
+      testacular(["start", "config/testacular/units.conf.js"], "Could not start Testacular unit server", complete);
+    });
+
+    var runTests = function(config) {
+      //var config = {"runnerPort": 9101 };
+      //var config = {};
 
       var output = "";
       var oldStdout = process.stdout.write;
@@ -65,7 +71,20 @@
 
         complete();
       });
-    }, {async: true});
+    };
+    
+    var runUnitTests = function() {
+      runTests({"runnerPort": 2600 });
+    };
+    var runE2ETests = function() {
+      runTests({"runnerPort": 2660 });
+    };
+
+    desc("End to End test code");
+    task("e2e", runE2ETests, {async: true});
+
+    desc("Test client code");
+    task("units", runUnitTests , {async: true});
   });
 
   function testacular(args, errorMessage, callback) {

@@ -13,6 +13,9 @@ files = [
 
 autoWatch = false;
 
+port = 9888;
+runnerPort = 2600;
+
 //browsers = ['Chrome'];
 
 reporters = ['dots'];

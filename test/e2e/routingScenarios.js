@@ -14,12 +14,12 @@ describe('Brewsheet Routing', function() {
 
   it('should render Beer Design when user navigates to /beer_design', function() {
     browser().navigateTo('#/beer_design');
-    expect(element('[ng-view] legend').text()).toMatch(/Beer Design/);
+    expect(element('div[data-ng-view] legend').text()).toMatch(/Beer Design/);
   });
 
   it('should render Hop Bill when user navigates to /hop_bill', function() {
     browser().navigateTo('#/hop_bill');
-    expect(element('[ng-view] legend').text()).toMatch(/Hop Bill/);
+    expect(element('div[data-ng-view] legend').text()).toMatch(/Hop Bill/);
   });
 
 });
