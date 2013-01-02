@@ -4,7 +4,7 @@
 brewsheetApp.controller('HopBillController',
   function HopBillController($scope, design) {
     //TODO get rid of these default hops
-    var bitteringHop = new Hop({name:'Cascade', alphaAcid: 6.1,  boilTime: 60});
+    var bitteringHop = new Hop({});
     var flavorHops = [];
 
     $scope.flavorHops = flavorHops;
