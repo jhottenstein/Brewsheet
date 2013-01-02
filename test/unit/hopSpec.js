@@ -14,11 +14,15 @@ describe('Hop Class', function(){
     expect(hop.amount).toBe(1.9);
   });
   it('should calculate IBUs from alphaacid and amount', function () {
-    expect(hop.ibus()).toBeCloseTo(35, 0);
+    expect(hop.ibus()).toBeCloseTo(42, 0);
   });
 
   it('should have a getter for amount', function () {
     expect(hop.getAmount()).toBe(1.9);
+  });
+
+  it('should calculate utilization from boil time', function () {
+    expect(hop.utilization()).toBeCloseTo(0.289,3);
   });
 
 });

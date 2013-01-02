@@ -27,7 +27,8 @@ describe('Hop Bill Controller', function(){
 
   it('should calculate amount of bittering hops needed', function () {
     scope.bitteringHop.alphaAcid = 6.3;
-    expect(scope.bitteringHop.getAmount()).toBeCloseTo(1.9, 1);
+    scope.bitteringHop.boilTime = 60;
+    expect(scope.bitteringHop.getAmount()).toBeCloseTo(1.6, 1);
   });
   
   it('should have flavor hops', function () {
@@ -49,13 +50,14 @@ describe('Hop Bill Controller', function(){
       name: 'Flavor Flav',
       amount: 1,
       alphaAcid: 6.1,
-      boilTime: 1
+      boilTime: 10
     });
     scope.newHop = hop;
     scope.addHop();
 
     scope.bitteringHop.alphaAcid = 6.3;
-    expect(scope.bitteringHop.getAmount()).toBeCloseTo(0.9, 1);
+    scope.bitteringHop.boilTime = 60;
+    expect(scope.bitteringHop.getAmount()).toBeCloseTo(1.2, 1);
   });
   
   it('can add a new hop to the list of flavor hops', function () {
@@ -63,7 +65,7 @@ describe('Hop Bill Controller', function(){
       name: 'Flavor Flav',
       amount: 1,
       alphaAcid: 6.1,
-      boilTime: 1
+      boilTime: 10
     });
 
     scope.newHop = hop;
@@ -71,7 +73,7 @@ describe('Hop Bill Controller', function(){
 
     expect(scope.flavorHops.length).toBe(1);
     expect(scope.flavorHops[0].name).toBe('Flavor Flav');
-    expect(scope.flavorHops[0].ibus()).toBeCloseTo(18,0);
+    expect(scope.flavorHops[0].ibus()).toBeCloseTo(8,0);
   });
 
   it('has an ibu function for the newHop', function () {

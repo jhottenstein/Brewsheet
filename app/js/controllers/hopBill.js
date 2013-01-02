@@ -34,8 +34,8 @@ brewsheetApp.controller('HopBillController',
       var flavorIbus = totalIbusfrom(flavorHops),
           ibusNeeded = design.ibu - flavorIbus,
           alphaAcid = $scope.bitteringHop.alphaAcid,
-          utilization = 24,             //calculate from boil time
-          magicNumber = 0.7489,         //conversion from oz/gal to mg/L
+          utilization = $scope.bitteringHop.utilization(),             //calculate from boil time
+          magicNumber = 74.89,         //conversion from oz/gal to mg/L
           batchVolume = 6,              //input on beer design
           boilGravityCorrection = 1.03, //calculate from beer design
           amountNeeded = batchVolume * boilGravityCorrection * ibusNeeded / (alphaAcid * utilization * magicNumber);
