@@ -23,7 +23,9 @@ brewsheetApp.controller('HopBillController',
 
 
     //move to hop object?
+    //needs the flavorHops collection
     bitteringHop.getAmount = function() {
+
       function totalIbusfrom(hopCollection) {
         var totalIbus = 0;
         angular.forEach(hopCollection, function(hop) {
@@ -31,10 +33,11 @@ brewsheetApp.controller('HopBillController',
         });
         return totalIbus;
       }
+
       var flavorIbus = totalIbusfrom(flavorHops),
           ibusNeeded = design.ibu - flavorIbus,
-          alphaAcid = $scope.bitteringHop.alphaAcid,
-          utilization = $scope.bitteringHop.utilization(),             //calculate from boil time
+          alphaAcid = this.alphaAcid,
+          utilization = this.utilization(),             //calculate from boil time
           magicNumber = 74.89,         //conversion from oz/gal to mg/L
           batchVolume = 6,              //input on beer design
           boilGravityCorrection = 1.03, //calculate from beer design
