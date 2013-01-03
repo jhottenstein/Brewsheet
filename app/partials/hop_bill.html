@@ -21,10 +21,10 @@
       <tr>
         <th>Bittering</th>
         <td><input id="hopName" ng-model="hopBill.bitteringHop.name"></td>
-        <td>{{hopBill.bitteringHop.getAmount().toFixed(1)}}</td>
+        <td>{{hopBill.getBitteringHopAmount().toFixed(1)}}</td>
         <td><input id="alphaAcid" ng-model="hopBill.bitteringHop.alphaAcid"></td>
         <td><input id="boilTime" ng-model="hopBill.bitteringHop.boilTime"></td>
-        <td>{{hopBill.bitteringHop.ibus().toFixed(0)}}</td>
+        <td>{{hopBill.getBitteringHopIbus().toFixed(0)}}</td>
       </tr>
       <tr data-ng-repeat="hop in hopBill.flavorHops">
         <th>Flavor/Aroma</th>
