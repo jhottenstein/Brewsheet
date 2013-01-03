@@ -37,6 +37,6 @@ Stories
 
 
 Nice to Haves
-  - Refactor hop collection
+  * Refactor hopBill
   - Make hop fields required before submit
   - Tab order, arrow keys

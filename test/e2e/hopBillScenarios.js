@@ -32,15 +32,15 @@ describe('Hop Bill Page', function() {
 
   it('should calculate bittering hop amount from design and alpha acid %', function() {
     var name = 'hopper';
-    input('bitteringHop.name').enter(name);
+    input('hopBill.bitteringHop.name').enter(name);
     var alphaAcidPercent = '6.3';
-    input('bitteringHop.alphaAcid').enter(alphaAcidPercent);
+    input('hopBill.bitteringHop.alphaAcid').enter(alphaAcidPercent);
     var boilTime = '75';
-    input('bitteringHop.boilTime').enter(boilTime);
+    input('hopBill.bitteringHop.boilTime').enter(boilTime);
 
     expect(element('tbody tr:eq(0) td', 'table columns').count()).toBe(5);
     expect(element('tbody tr td:eq(0) input', 'Name value').val()).toBe(name);
-    expect(element('tbody tr td:eq(1)', 'Amount value').html()).toBe('1.9');
+    expect(element('tbody tr td:eq(1)', 'Amount value').html()).toBe('1.5');
     expect(element('tbody tr td:eq(2) input', 'Alpha Acid % value').val()).toBe(alphaAcidPercent);
     expect(element('tbody tr td:eq(3) input', 'Boil Time value').val()).toBe(boilTime);
     expect(element('tbody tr td:eq(4)', 'IBUs value').html()).toBe(ibu);
@@ -65,7 +65,7 @@ describe('Hop Bill Page', function() {
     expect(element('tbody tr:eq(1) td:eq(1) input', 'Amount value').val()).toBe(amount);
     expect(element('tbody tr:eq(1) td:eq(2) input', 'Alpha Acid % value').val()).toBe(alphaAcidPercent);
     expect(element('tbody tr:eq(1) td:eq(3) input', 'Boil Time value').val()).toBe(boilTime);
-    expect(element('tbody tr:eq(1) td:eq(4)', 'IBUs value').html()).toBe('20');
+    expect(element('tbody tr:eq(1) td:eq(4)', 'IBUs value').html()).toBe('15');
 
   });
 
@@ -84,11 +84,11 @@ describe('Hop Bill Page', function() {
 
   it('should adjust bittering hop due to flavor hop addition', function() {
     var name = 'hopper';
-    input('bitteringHop.name').enter(name);
+    input('hopBill.bitteringHop.name').enter(name);
     var alphaAcidPercent = '6.3';
-    input('bitteringHop.alphaAcid').enter(alphaAcidPercent);
+    input('hopBill.bitteringHop.alphaAcid').enter(alphaAcidPercent);
     var boilTime = '75';
-    input('bitteringHop.boilTime').enter(boilTime);
+    input('hopBill.bitteringHop.boilTime').enter(boilTime);
 
     input('newHop.name').enter('flavor hopper');
     input('newHop.amount').enter('3.0');
@@ -98,10 +98,10 @@ describe('Hop Bill Page', function() {
     element('input[type="Submit"]').click();
 
     expect(element('tbody tr td:eq(0) input', 'Name value').val()).toBe(name);
-    expect(element('tbody tr td:eq(1)', 'Amount value').html()).toBe('0.8');
+    expect(element('tbody tr td:eq(1)', 'Amount value').html()).toBe('0.9');
     expect(element('tbody tr td:eq(2) input', 'Alpha Acid % value').val()).toBe(alphaAcidPercent);
     expect(element('tbody tr td:eq(3) input', 'Boil Time value').val()).toBe(boilTime);
-    expect(element('tbody tr td:eq(4)', 'IBUs value').html()).toBe('15');
+    expect(element('tbody tr td:eq(4)', 'IBUs value').html()).toBe('20');
 
 
   });

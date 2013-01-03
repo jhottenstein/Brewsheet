@@ -20,7 +20,7 @@ function Hop(props){
   hopPrototype.ibus = function() {
     var amount = this.getAmount(),
         alphaAcid = this.alphaAcid,
-        utilization = this.utilization(), 
+        utilization = this.utilization(),
         magicNumber = 74.89,         // g/L -> oz/gal
         batchVolume = 6,              //input on beer design
         boilGravityCorrection = 1.03, //calculate from beer design

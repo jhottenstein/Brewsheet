@@ -1,4 +1,4 @@
-/*global Hop*/
+/*global Hop, HopBill*/
 'use strict';
 
 describe('Hop Bill Controller', function(){
@@ -21,45 +21,10 @@ describe('Hop Bill Controller', function(){
     expect(scope.ibu).toBe(35);
   });
 
-  it('should have a bittering hop', function () {
-    expect(scope.bitteringHop instanceof Hop).toBeTruthy();
+  it('should have a hop bill', function () {
+    expect(scope.hopBill instanceof HopBill).toBeTruthy();
   });
 
-  it('should calculate amount of bittering hops needed', function () {
-    scope.bitteringHop.alphaAcid = 6.3;
-    scope.bitteringHop.boilTime = 60;
-    expect(scope.bitteringHop.getAmount()).toBeCloseTo(1.6, 1);
-  });
-  
-  it('should have flavor hops', function () {
-    var hop = new Hop({
-      name: 'Flavor Flav',
-      amount: 1,
-      alphaAcid: 6.1,
-      boilTime: 1
-    });
-    scope.newHop = hop;
-    scope.addHop();
-
-    expect(scope.flavorHops instanceof Array).toBeTruthy();
-    expect(scope.flavorHops[0] instanceof Hop).toBeTruthy();
-  });
-
-  it('should calculate amount of bittering hops needed when there are flavor hops', function () {
-    var hop = new Hop({
-      name: 'Flavor Flav',
-      amount: 1,
-      alphaAcid: 6.1,
-      boilTime: 10
-    });
-    scope.newHop = hop;
-    scope.addHop();
-
-    scope.bitteringHop.alphaAcid = 6.3;
-    scope.bitteringHop.boilTime = 60;
-    expect(scope.bitteringHop.getAmount()).toBeCloseTo(1.2, 1);
-  });
-  
   it('can add a new hop to the list of flavor hops', function () {
     var hop = new Hop({
       name: 'Flavor Flav',
@@ -71,9 +36,9 @@ describe('Hop Bill Controller', function(){
     scope.newHop = hop;
     scope.addHop();
 
-    expect(scope.flavorHops.length).toBe(1);
-    expect(scope.flavorHops[0].name).toBe('Flavor Flav');
-    expect(scope.flavorHops[0].ibus()).toBeCloseTo(8,0);
+    expect(scope.hopBill.flavorHops.length).toBe(1);
+    expect(scope.hopBill.flavorHops[0].name).toBe('Flavor Flav');
+    expect(scope.hopBill.flavorHops[0].ibus()).toBeCloseTo(8,0);
   });
 
   it('has an ibu function for the newHop', function () {

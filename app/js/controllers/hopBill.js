@@ -1,14 +1,10 @@
-/*global Hop*/
+/*global Hop, HopBill */
 'use strict';
 
 brewsheetApp.controller('HopBillController',
   function HopBillController($scope, design) {
-    //TODO get rid of these default hops
-    var bitteringHop = new Hop({});
-    var flavorHops = [];
 
-    $scope.flavorHops = flavorHops;
-    $scope.bitteringHop = bitteringHop;
+    $scope.hopBill = new HopBill(design.ibu);
     $scope.newHop = new Hop({});
 
     $scope.og = design.og;
@@ -17,32 +13,10 @@ brewsheetApp.controller('HopBillController',
     $scope.addHop = function(){
     //TODO I hate this API for adding hops
     //I should make a HopCollection class
-      $scope.flavorHops.push($scope.newHop);
+      $scope.hopBill.flavorHops.push($scope.newHop);
       $scope.newHop = new Hop({});
     };
 
 
-    //move to hop object?
-    //needs the flavorHops collection
-    bitteringHop.getAmount = function() {
-
-      function totalIbusfrom(hopCollection) {
-        var totalIbus = 0;
-        angular.forEach(hopCollection, function(hop) {
-          totalIbus += hop.ibus();
-        });
-        return totalIbus;
-      }
-
-      var flavorIbus = totalIbusfrom(flavorHops),
-          ibusNeeded = design.ibu - flavorIbus,
-          alphaAcid = this.alphaAcid,
-          utilization = this.utilization(),             //calculate from boil time
-          magicNumber = 74.89,         //conversion from oz/gal to mg/L
-          batchVolume = 6,              //input on beer design
-          boilGravityCorrection = 1.03, //calculate from beer design
-          amountNeeded = batchVolume * boilGravityCorrection * ibusNeeded / (alphaAcid * utilization * magicNumber);
-      return amountNeeded;
-    };
   }
 );
