@@ -11,9 +11,7 @@ brewsheetApp.controller('HopBillController',
     $scope.ibu = design.ibu;
 
     $scope.addHop = function(){
-    //TODO I hate this API for adding hops
-    //I should make a HopCollection class
-      $scope.hopBill.flavorHops.push($scope.newHop);
+      $scope.hopBill.add($scope.newHop);
       $scope.newHop = new Hop({});
     };
 

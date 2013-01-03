@@ -19,14 +19,18 @@ describe('Hop Class', function(){
     expect(hopBill.bitteringHop instanceof Hop).toBeTruthy();
   });
   
-  it('should have a bittering hop', function () {
+  it('should have a flavor hop', function () {
     hopBill = new HopBill(35, bitteringHop, [flavorHop]);
     expect(hopBill.flavorHops instanceof Array).toBeTruthy();
     expect(hopBill.flavorHops[0] instanceof Hop).toBeTruthy();
   });
 
+  it('should be able to add flavorHops', function () {
+    hopBill = new HopBill();
+    hopBill.add(flavorHop);
+    expect(hopBill.flavorHops[0]).toBe(flavorHop);
+  });
 
-  
   it('should calculate amount of bittering hops needed', function () {
     hopBill = new HopBill(35, bitteringHop, []);
     expect(hopBill.bitteringHop.getAmount()).toBeCloseTo(1.6, 1);
