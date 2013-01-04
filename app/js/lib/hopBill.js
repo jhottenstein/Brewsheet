@@ -1,10 +1,10 @@
 /*global Hop */
 "use strict";
 
-function HopBill(_desiredIBUs, _bitteringHop, _flavorHops){
-  this.flavorHops   = _flavorHops || [];
-  this.desiredIBUs  = _desiredIBUs;
-  this.bitteringHop = _bitteringHop || new Hop({});
+function HopBill(desiredIBUs, bitteringHop, flavorHops) {
+  this.desiredIBUs  = desiredIBUs;
+  this.bitteringHop = bitteringHop || new Hop({});
+  this.flavorHops   = flavorHops || [];
 }
 (function (hopBillPrototype){
   hopBillPrototype.add = function(newHop) {

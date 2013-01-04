@@ -30,11 +30,8 @@ Stories
   = Calculate Utilization from boil time
   = Allow removal of flavor hops
  
-- Capture desired hop type
-  - Save name, aa%, boil time to localStorage
-
-
-
+- Capture hop bill
+  - Save hopBill to localStorage
 
 Nice to Haves
   = Refactor hopBill
