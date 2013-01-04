@@ -27,4 +27,14 @@ function Hop(props){
         ibus = (amount * alphaAcid * utilization * magicNumber) / (batchVolume * boilGravityCorrection);
     return ibus;
   };
+
+  hopPrototype.isUndefined = function() {
+    var isUndefined = true;
+    for (var prop in this) {
+      if (this.hasOwnProperty(prop) && this[prop] !== undefined) {
+        isUndefined = false;
+      }
+    }
+    return isUndefined;
+  };
 }(Hop.prototype));

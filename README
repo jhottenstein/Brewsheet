@@ -28,7 +28,7 @@ Stories
   = create e2e runner
   = Remove default bittering hop
   = Calculate Utilization from boil time
-  - Allow removal of flavor hops
+  = Allow removal of flavor hops
  
 - Capture desired hop type
   - Save name, aa%, boil time to localStorage
@@ -37,6 +37,6 @@ Stories
 
 
 Nice to Haves
-  * Refactor hopBill
+  = Refactor hopBill
   - Make hop fields required before submit
   - Tab order, arrow keys

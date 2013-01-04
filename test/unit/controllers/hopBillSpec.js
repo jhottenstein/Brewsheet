@@ -25,25 +25,53 @@ describe('Hop Bill Controller', function(){
     expect(scope.hopBill instanceof HopBill).toBeTruthy();
   });
 
-  it('can add a new hop to the list of flavor hops', function () {
-    var hop = new Hop({
-      name: 'Flavor Flav',
-      amount: 1,
-      alphaAcid: 6.1,
-      boilTime: 10
-    });
-
-    scope.newHop = hop;
-    scope.addHop();
-
-    expect(scope.hopBill.flavorHops.length).toBe(1);
-    expect(scope.hopBill.flavorHops[0].name).toBe('Flavor Flav');
-    expect(scope.hopBill.flavorHops[0].ibus()).toBeCloseTo(8,0);
-  });
-
   it('has an ibu function for the newHop', function () {
     expect(scope.newHop.ibus).toBeDefined();
     scope.addHop();
     expect(scope.newHop.ibus).toBeDefined();
   });
+
+  it('can add a new hop to the list of flavor hops', function () {
+    var hop = new Hop({ name: 'Flavor Flav' });
+
+    scope.newHop = hop;
+    scope.addHop();
+
+    expect(scope.hopBill.flavorHops[0]).toBe(hop);
+  });
+
+  it('does nothing if trying to add an empty hop', function () {
+    var hop = new Hop({});
+
+    scope.newHop = hop;
+    scope.addHop();
+
+    expect(scope.hopBill.flavorHops[0]).toBe(undefined);
+  });
+
+  it('can remove a hop from the list of flavor hops', function () {
+    var hop1 = new Hop({ name: 'Flavor Flav' });
+    var hop2 = new Hop({ name: 'Chuck D' });
+
+    scope.newHop = hop1;
+    scope.addHop();
+    scope.newHop = hop2;
+    scope.addHop();
+    expect(scope.hopBill.flavorHops.length).toBe(2);
+    scope.removeHop(hop1);
+    expect(scope.hopBill.flavorHops.length).toBe(1);
+  });
+
+  it('does nothing if no hop is given to remove', function () {
+    var hop1 = new Hop({ name: 'Flavor Flav' });
+    var hop2 = new Hop({ name: 'Chuck D' });
+    scope.newHop = hop1;
+    scope.addHop();
+    scope.newHop = hop2;
+    scope.addHop();
+
+    scope.removeHop();
+    expect(scope.hopBill.flavorHops.length).toBe(2);
+  });
+
 });

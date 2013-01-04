@@ -47,18 +47,19 @@ describe('Hop Bill Page', function() {
 
   });
 
-  it('should have a flavor hop row', function() {
+  it('should be able to add a flavor hop', function() {
     var name = 'flavor hopper';
-    input('newHop.name').enter(name);
     var amount = '3.0';
-    input('newHop.amount').enter(amount);
     var alphaAcidPercent = '2.3';
-    input('newHop.alphaAcid').enter(alphaAcidPercent);
     var boilTime = '20';
+
+    input('newHop.name').enter(name);
+    input('newHop.amount').enter(amount);
+    input('newHop.alphaAcid').enter(alphaAcidPercent);
     input('newHop.boilTime').enter(boilTime);
 
+    expect(element('tbody tr', 'table rows').count()).toBe(2);
     element('input[type="Submit"]').click();
-
     expect(element('tbody tr', 'table rows').count()).toBe(3);
 
     expect(element('tbody tr:eq(1) td:eq(0) input', 'Name value').val()).toBe(name);
@@ -66,6 +67,24 @@ describe('Hop Bill Page', function() {
     expect(element('tbody tr:eq(1) td:eq(2) input', 'Alpha Acid % value').val()).toBe(alphaAcidPercent);
     expect(element('tbody tr:eq(1) td:eq(3) input', 'Boil Time value').val()).toBe(boilTime);
     expect(element('tbody tr:eq(1) td:eq(4)', 'IBUs value').html()).toBe('15');
+
+  });
+
+  it('should be able to remove a flavor hop', function() {
+    var hopName = 'flavor hopper';
+    var hopName2 = 'hop #2';
+
+    input('newHop.name').enter(hopName);
+    element('input[type="Submit"]').click();
+    input('newHop.name').enter(hopName2);
+    element('input[type="Submit"]').click();
+
+    expect(element('tbody tr', 'table rows').count()).toBe(4);
+    expect(element('tbody tr:eq(1) td:eq(0) input', 'Name value').val()).toBe(hopName);
+    expect(element('tbody tr:eq(2) td:eq(0) input', 'Name value').val()).toBe(hopName2);
+    element('tbody tr:eq(1) input[type="button"]').click();
+    expect(element('tbody tr', 'table rows').count()).toBe(3);
+    expect(element('tbody tr:eq(1) td:eq(0) input', 'Name value').val()).toBe(hopName2);
 
   });
 

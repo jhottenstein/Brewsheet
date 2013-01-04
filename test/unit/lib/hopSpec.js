@@ -25,4 +25,10 @@ describe('Hop Class', function(){
     expect(hop.utilization()).toBeCloseTo(0.289,3);
   });
 
+  it('can tell if it is empty', function () {
+    var newHop = new Hop({});
+    expect(newHop.isUndefined()).toBeTruthy();
+    expect(hop.isUndefined()).not.toBeTruthy();
+  });
+
 });

@@ -11,6 +11,10 @@ function HopBill(_desiredIBUs, _bitteringHop, _flavorHops){
     this.flavorHops.push(newHop);
   };
 
+  hopBillPrototype.remove = function(hop) {
+    this.flavorHops.splice(this.flavorHops.indexOf(hop), 1);
+  };
+
   hopBillPrototype.totalFlavorIBUs = function () {
     var totalIbus = 0;
     angular.forEach(this.flavorHops, function(hop) {

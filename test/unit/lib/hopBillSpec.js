@@ -31,6 +31,15 @@ describe('Hop Class', function(){
     expect(hopBill.flavorHops[0]).toBe(flavorHop);
   });
 
+  it('should be able to remove flavorHops', function () {
+    hopBill = new HopBill();
+    hopBill.add(flavorHop);
+    hopBill.add(bitteringHop);
+    expect(hopBill.flavorHops[1]).toBe(bitteringHop);
+    hopBill.remove(bitteringHop);
+    expect(hopBill.flavorHops.indexOf(bitteringHop)).toBe(-1);
+  });
+
   it('should be able to calculate ibus from flavor hops', function () {
     hopBill = new HopBill();
     expect(hopBill.totalFlavorIBUs()).toBe(0);
@@ -60,5 +69,12 @@ describe('Hop Class', function(){
     expect(hopBill.getBitteringHopAmount()).toBeCloseTo(1.6, 1);
     hopBill.add(flavorHop);
     expect(hopBill.getBitteringHopAmount()).toBeCloseTo(0.8, 1);
+  });
+
+  it('should adjust amount of bittering hops needed when flavor hops are removed', function () {
+    hopBill = new HopBill(35, bitteringHop, [flavorHop]);
+    expect(hopBill.getBitteringHopAmount()).toBeCloseTo(0.8, 1);
+    hopBill.remove(flavorHop);
+    expect(hopBill.getBitteringHopAmount()).toBeCloseTo(1.6, 1);
   });
 });
