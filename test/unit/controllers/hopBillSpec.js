@@ -1,4 +1,4 @@
-/*global Hop, HopBill*/
+/*global Hop, HopBill, element*/
 'use strict';
 
 describe('Hop Bill Controller', function(){
@@ -41,9 +41,7 @@ describe('Hop Bill Controller', function(){
   });
 
   it('does nothing if trying to add an empty hop', function () {
-    var hop = new Hop({});
-
-    scope.newHop = hop;
+    scope.newHop = new Hop({});
     scope.addHop();
 
     expect(scope.hopBill.flavorHops[0]).toBe(undefined);

@@ -22,7 +22,7 @@ describe('Beer Design Controller', function(){
   it('should be able to calculate BU/GU', function() {
     scope.ibu = 50;
     scope.og = 1.050;
-    expect(scope.buGu()).toBeCloseTo(1);
+    expect(scope.buGu()).toBeCloseTo(1,0);
   });
 
   it('should populate values from design service', function() {

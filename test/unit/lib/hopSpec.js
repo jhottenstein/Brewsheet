@@ -13,7 +13,7 @@ describe('Hop Class', function(){
     expect(hop.boilTime).toBe(60);
     expect(hop.amount).toBe(1.9);
   });
-  it('should calculate IBUs from alphaacid and amount', function () {
+  it('should calculate IBUs from alpha acid and amount', function () {
     expect(hop.ibus()).toBeCloseTo(42, 0);
   });
 

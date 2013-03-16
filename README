@@ -31,7 +31,9 @@ Stories
   = Allow removal of flavor hops
  
 - Capture hop bill
+  - Create hop storage service
   - Save hopBill to localStorage
+  - Reconstruct a hopBill from the json
 
 Nice to Haves
   = Refactor hopBill
