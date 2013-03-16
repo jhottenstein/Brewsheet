@@ -42,23 +42,39 @@ describe('design service', function() {
     });
   });
 
-  it('should use localStorage value if it exists', function() {
-    module(function($provide) {
-      localStorage = {
-        beerDesign: '{"name":"Jasper","style":"Sarsaparilla","og":1.02,"ibu":10,"srm":20}'
-      };
+  describe('Full Local Storage Tests', function() {
+    beforeEach(function() {
+      module(function($provide) {
+        localStorage = {
+          beerDesign: '{"name":"Jasper","style":"Sarsaparilla","og":1.020,"ibu":10,"srm":20}'
+        };
 
-      $provide.value('localStorage', localStorage);
+        $provide.value('localStorage', localStorage);
+      });
+
+      inject(function(_design_, _$rootScope_) {
+        design = _design_;
+        $rootScope = _$rootScope_;
+      });
     });
+    it('should use localStorage value if it exists', function() {
 
-    inject(function(_design_) {
-      design = _design_;
+      expect(design.name).toBe('Jasper');
+      expect(design.style).toBe('Sarsaparilla');
+      expect(design.og).toBe(1.02);
+      expect(design.ibu).toBe(10);
+      expect(design.srm).toBe(20);
     });
+    it('should persist values and overwrite localStorage', function() {
+      $rootScope.$apply(function() {
+        design.name = 'Tap';
+        design.style = 'Water';
+        design.og = 1.000;
+        design.ibu = 0;
+        design.srm = 0;
+      });
 
-    expect(design.name).toBe('Jasper');
-    expect(design.style).toBe('Sarsaparilla');
-    expect(design.og).toBe(1.020);
-    expect(design.ibu).toBe(10);
-    expect(design.srm).toBe(20);
+      expect(localStorage.beerDesign).toBe('{"name":"Tap","style":"Water","og":1,"ibu":0,"srm":0}');
+    });
   });
 });
