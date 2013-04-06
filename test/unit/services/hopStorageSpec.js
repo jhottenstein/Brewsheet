@@ -19,22 +19,17 @@ describe('hop storage service', function() {
       });
     });
   
-//  it('should default to undefined', function() {
-//
-//    expect(design.name).toBe(undefined);
-//    expect(design.style).toBe(undefined);
-//    expect(design.og).toBe(undefined);
-//    expect(design.ibu).toBe(undefined);
-//    expect(design.srm).toBe(undefined);
-//  });
+    it('should default to undefined', function() {
+      expect(hopStorage.hopBill).toBe(undefined);
+    });
 //
 //  it('should persist to localStorage', function() {
 //    $rootScope.$apply(function() {
-//      design.name = 'Jasper';
-//      design.style = 'Sarsaparilla';
-//      design.og = 1.020;
-//      design.ibu = 10;
-//      design.srm = 20;
+//      hopStorage.name = 'Jasper';
+//      hopStorage.style = 'Sarsaparilla';
+//      hopStorage.og = 1.020;
+//      hopStorage.ibu = 10;
+//      hopStorage.srm = 20;
 //    });
 //
 //    expect(localStorage.beerDesign).toBe('{"name":"Jasper","style":"Sarsaparilla","og":1.02,"ibu":10,"srm":20}');
@@ -50,14 +45,14 @@ describe('hop storage service', function() {
 //    $provide.value('localStorage', localStorage);
 //  });
 //
-//  inject(function(_design_) {
-//    design = _design_;
+//  inject(function(_hopStorage_) {
+//    hopStorage = _hopStorage_;
 //  });
 //
-//  expect(design.name).toBe('Jasper');
-//  expect(design.style).toBe('Sarsaparilla');
-//  expect(design.og).toBe(1.020);
-//  expect(design.ibu).toBe(10);
-//  expect(design.srm).toBe(20);
+//  expect(hopStorage.name).toBe('Jasper');
+//  expect(hopStorage.style).toBe('Sarsaparilla');
+//  expect(hopStorage.og).toBe(1.020);
+//  expect(hopStorage.ibu).toBe(10);
+//  expect(hopStorage.srm).toBe(20);
   });
 });

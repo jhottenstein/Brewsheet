@@ -20,18 +20,18 @@
 
     desc("Single run of all end to end tests");
     task("single-e2e", function() {
-      testacular(["start", "config/testacular/single-e2e.conf.js"], "Failed", complete);
+      karma(["start", "config/karma/single-e2e.conf.js"], "Failed", complete);
     }, {async: true});
 
 
     desc("Single run of all unit tests");
     task("single-units", function() {
-      testacular(["start", "config/testacular/single-units.conf.js"], "Failed", complete);
+      karma(["start", "config/karma/single-units.conf.js"], "Failed", complete);
     }, {async: true});
 
     //desc("Start Testacular server for unit testing");
     //task("start-e2e", function() {
-    //  testacular(["start", "config/testacular-e2e.conf.js"], "Could not start Testacular e2e server", complete);
+    //  karma(["start", "config/karma-e2e.conf.js"], "Could not start Testacular e2e server", complete);
     //  }, {async: true});
 
     desc("Start Testacular servers for unit and e2e testing");
@@ -39,12 +39,12 @@
 
     desc("Start Testacular server for e2e testing");
     task("start-e2e", function() {
-      testacular(["start", "config/testacular/e2e.conf.js"], "Could not start Testacular e2e server", complete);
+      karma(["start", "config/karma/e2e.conf.js"], "Could not start Testacular e2e server", complete);
     });
 
     desc("Start Testacular server for unit testing");
     task("start-units", function() {
-      testacular(["start", "config/testacular/units.conf.js"], "Could not start Testacular unit server", complete);
+      karma(["start", "config/karma/units.conf.js"], "Could not start Testacular unit server", complete);
     });
 
     var runTests = function(config) {
@@ -58,7 +58,7 @@
         oldStdout.apply(this, arguments);
       };
 
-      require("testacular/lib/runner").run(config, function(exitCode) {
+      require("karma").runner.run(config, function(exitCode) {
         process.stdout.write = oldStdout;
 
         if (exitCode) fail("Client tests failed (to start server, run 'jake test:start')");
@@ -87,8 +87,8 @@
     task("units", runUnitTests , {async: true});
   });
 
-  function testacular(args, errorMessage, callback) {
-    args.unshift("node_modules/testacular/bin/testacular");
+  function karma(args, errorMessage, callback) {
+    args.unshift("node_modules/.bin/karma");
     sh("node", args, errorMessage, callback);
   }
 
@@ -136,7 +136,7 @@
     jsFiles.exclude("scripts/web-server.js");
 
     jsFiles.exclude("node_modules");
-    jsFiles.exclude("config/testacular");
+    jsFiles.exclude("config/karma");
     return jsFiles.toArray();
   }
 
