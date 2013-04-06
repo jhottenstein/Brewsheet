@@ -132,9 +132,8 @@
   function javascriptFiles() {
     var jsFiles = new jake.FileList();
     jsFiles.include("**/*.js");
-    jsFiles.exclude("*/lib/**/*.js");
     jsFiles.exclude("scripts/web-server.js");
-
+    jsFiles.exclude("components");
     jsFiles.exclude("node_modules");
     jsFiles.exclude("config/karma");
     return jsFiles.toArray();
