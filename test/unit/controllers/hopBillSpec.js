@@ -2,14 +2,17 @@
 'use strict';
 
 describe('Hop Bill Controller', function(){
-  var design, scope;
+  var design, hopStorage, scope;
+  var tempHopBill;
   beforeEach(module('brewsheetApp'));
   beforeEach(module(function($provide) {
     design = {
       og: 1.050,
       ibu: 35
     };
+    hopStorage = { hopBill: new HopBill(10)};
     $provide.value('design', design);
+    $provide.value('hopStorage', hopStorage);
   }));
 
   beforeEach(inject(function($controller, $rootScope) {
@@ -19,6 +22,10 @@ describe('Hop Bill Controller', function(){
   it('should populate values from design service', function() {
     expect(scope.og).toBe(1.050);
     expect(scope.ibu).toBe(35);
+  });
+
+  it('should populate hopBill from hopStorage service', function() {
+    expect(scope.hopBill).toBe(hopStorage.hopBill);
   });
 
   it('should have a hop bill', function () {
