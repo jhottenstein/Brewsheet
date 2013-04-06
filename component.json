@@ -1,0 +1,17 @@
+{
+  "name": "Brewsheet",
+  "version": "0.0.0",
+  "main": "app/index.html",
+  "dependencies": {
+    "angular": "~1.0.6",
+  }
+  "dev-dependencies": {
+    "angular-mocks": "~1.0.6",
+    "angular-scenario": "~1.0.6"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ]
+}
