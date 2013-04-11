@@ -19,7 +19,7 @@ describe('design service', function() {
         $rootScope = _$rootScope_;
       });
     });
-  
+
     it('should default to undefined', function() {
 
       expect(design.name).toBe(undefined);

@@ -18,7 +18,7 @@ describe('Hop Class', function(){
     hopBill = new HopBill();
     expect(hopBill.bitteringHop instanceof Hop).toBeTruthy();
   });
-  
+
   it('should have a flavor hop', function () {
     hopBill = new HopBill(35, bitteringHop, [flavorHop]);
     expect(hopBill.flavorHops instanceof Array).toBeTruthy();

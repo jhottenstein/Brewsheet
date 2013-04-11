@@ -18,7 +18,7 @@ describe('hop storage service', function() {
         $rootScope = _$rootScope_;
       });
     });
-  
+
     it('should default to undefined', function() {
       expect(hopStorage.hopBill).toBe(undefined);
     });
