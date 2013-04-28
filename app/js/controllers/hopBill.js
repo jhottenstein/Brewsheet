@@ -13,7 +13,7 @@ brewsheetApp.controller('HopBillController',
     $scope.$watch(function() { return $scope.hopBill; }, function (ov, nv, scope) {
       hopStorage.hopBill = scope.hopBill;
     });
-    
+
     $scope.addHop = function(){
       if ($scope.newHop.isUndefined()) return;
       $scope.hopBill.add($scope.newHop);
