@@ -3,7 +3,6 @@
 
 describe('Hop Bill Controller', function(){
   var design, hopStorage, scope;
-  var tempHopBill;
   beforeEach(module('brewsheetApp'));
   beforeEach(module(function($provide) {
     design = {
@@ -28,6 +27,18 @@ describe('Hop Bill Controller', function(){
     expect(scope.hopBill).toBe(hopStorage.hopBill);
   });
 
+  var expectHopStoragePropertyToBe = function(property, value) {
+    expect(hopStorage['hopBill'][property]).not.toBe(value);
+    scope['hopBill'][property] = value;
+    scope.$digest();
+    expect(hopStorage['hopBill'][property]).toBe(value);
+  };
+
+  it('should update the hopStorage service when hopBill is changed', function() {
+    expectHopStoragePropertyToBe('desiredIBUs', 35);
+    expectHopStoragePropertyToBe('bitteringHop', new Hop({ name: 'Flavor Flav' }));
+  });
+  
   it('should have a hop bill', function () {
     expect(scope.hopBill instanceof HopBill).toBeTruthy();
   });
