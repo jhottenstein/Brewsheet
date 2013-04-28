@@ -1,6 +1,7 @@
 "use strict";
 //TODO amount vs getAmount()
 function Hop(props){
+  props = props || {};
   this.name = props.name;
   this.alphaAcid = props.alphaAcid;
   this.boilTime = props.boilTime;

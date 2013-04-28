@@ -26,7 +26,7 @@ describe('Hop Class', function(){
   });
 
   it('can tell if it is empty', function () {
-    var newHop = new Hop({});
+    var newHop = new Hop();
     expect(newHop.isUndefined()).toBeTruthy();
     expect(hop.isUndefined()).not.toBeTruthy();
   });

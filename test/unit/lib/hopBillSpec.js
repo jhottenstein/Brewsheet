@@ -77,4 +77,34 @@ describe('Hop Class', function(){
     hopBill.remove(flavorHop);
     expect(hopBill.getBitteringHopAmount()).toBeCloseTo(1.6, 1);
   });
+
+  it('should work as used in the controller', function () {
+    hopBill  = new HopBill(35);
+    var hop = hopBill.bitteringHop;
+    hop.name = bitteringHop.name;
+    hop.alphaAcid = bitteringHop.alphaAcid;
+    hop.boilTime = bitteringHop.boilTime;
+
+    expect(hopBill.bitteringHop).toEqual(bitteringHop);
+    expect(hopBill.bitteringHop.name).toEqual(bitteringHop.name);
+    expect(hopBill.getBitteringHopAmount()).toBeCloseTo(1.6, 1);
+
+  });
+
+  it('should deserialize a JSON string of a Hop Bill', function () {
+    var stringifiedHopBill = '{"desiredIBUs":35,"bitteringHop":{"name":"Cascade","alphaAcid":6.3,"boilTime":60},"flavorHops":[{"name":"Citra","alphaAcid":12.3,"boilTime":30,"amount":0.5}]}';
+    expect(JSON.stringify(bitteringHop)).toEqual('{"name":"Cascade","alphaAcid":6.3,"boilTime":60}');
+    hopBill = HopBill.fromJSON(stringifiedHopBill);
+    expect(hopBill.desiredIBUs).toBe(35);
+    expect(hopBill.bitteringHop).toEqual(new Hop({name:'Cascade',alphaAcid:6.3,boilTime:60}));
+    expect(hopBill.flavorHops).toEqual([new Hop({'name':'Citra','alphaAcid':12.3,'boilTime':30,'amount':0.5})]);
+  });
+
+ it('should have behavior on deserialized hop bill', function () {
+    var stringifiedHopBill = '{"desiredIBUs":35,"bitteringHop":{"name":"Cascade","alphaAcid":6.3,"boilTime":60},"flavorHops":[{"name":"Citra","alphaAcid":12.3,"boilTime":30,"amount":0.5}]}';
+    hopBill = HopBill.fromJSON(stringifiedHopBill);
+    expect(hopBill.add).toBeDefined();
+    expect(hopBill.bitteringHop.getAmount).toBeDefined();
+    expect(hopBill.flavorHops[0].getAmount).toBeDefined();
+  });
 });

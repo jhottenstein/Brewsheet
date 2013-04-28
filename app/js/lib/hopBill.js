@@ -1,11 +1,24 @@
 /*global Hop */
 "use strict";
 
-function HopBill(desiredIBUs, bitteringHop, flavorHops) {
-  this.desiredIBUs  = desiredIBUs;
-  this.bitteringHop = bitteringHop || new Hop({});
-  this.flavorHops   = flavorHops || [];
+//TODO clean constructor to just props
+function HopBill(desiredIBUs, bitteringHop, flavorHops, props) {
+  props = props || {};
+  this.desiredIBUs  = props.desiredIBUs || desiredIBUs;
+  this.bitteringHop = bitteringHop || new Hop(props.bitteringHop || {});
+  this.flavorHops   = flavorHops ||
+                      props.flavorHops && props.flavorHops.map(function(flavorHop) {
+                        return new Hop(flavorHop);
+                      }) ||
+                      [];
 }
+
+HopBill.fromJSON = function(json) {
+  var oldHopBill = JSON.parse(json);
+  var newHopBill = new HopBill(null, null, null, oldHopBill);
+  return newHopBill;
+};
+
 (function (hopBillPrototype){
   hopBillPrototype.add = function(newHop) {
     this.flavorHops.push(newHop);
