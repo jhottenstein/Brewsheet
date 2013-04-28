@@ -4,7 +4,7 @@
 brewsheetApp.controller('HopBillController',
   function HopBillController($scope, design, hopStorage) {
 
-    $scope.hopBill = hopStorage.hopBill || new HopBill(design.ibu);
+    $scope.hopBill = hopStorage.hopBill || new HopBill({desiredIBUs:design.ibu});
     $scope.newHop = new Hop({});
 
     $scope.og = design.og;

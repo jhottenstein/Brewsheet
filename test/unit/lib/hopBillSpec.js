@@ -9,9 +9,9 @@ describe('Hop Class', function(){
   });
 
   it('should assign and expose some properties', function() {
-    hopBill = new HopBill(35, bitteringHop, [flavorHop]);
-    expect(hopBill.bitteringHop).toBe(bitteringHop);
-    expect(hopBill.flavorHops[0]).toBe(flavorHop);
+    hopBill = new HopBill({desiredIBUs: 35, bitteringHop: bitteringHop, flavorHops: [flavorHop]});
+    expect(hopBill.bitteringHop).toEqual(bitteringHop);
+    expect(hopBill.flavorHops[0]).toEqual(flavorHop);
   });
 
   it('should have a bittering hop', function () {
@@ -20,7 +20,7 @@ describe('Hop Class', function(){
   });
 
   it('should have a flavor hop', function () {
-    hopBill = new HopBill(35, bitteringHop, [flavorHop]);
+    hopBill = new HopBill({desiredIBUs: 35, bitteringHop: bitteringHop, flavorHops: [flavorHop]});
     expect(hopBill.flavorHops instanceof Array).toBeTruthy();
     expect(hopBill.flavorHops[0] instanceof Hop).toBeTruthy();
   });
@@ -48,38 +48,38 @@ describe('Hop Class', function(){
   });
 
   it('should calculate amount of bittering hops needed', function () {
-    hopBill = new HopBill(35, bitteringHop, []);
+    hopBill = new HopBill({desiredIBUs: 35, bitteringHop: bitteringHop, flavorHops: []});
     expect(hopBill.getBitteringHopAmount()).toBeCloseTo(1.6, 1);
   });
 
   it('should calculate amount of IBUs from bittering hops', function () {
-    hopBill = new HopBill(35, bitteringHop, []);
+    hopBill = new HopBill({desiredIBUs: 35, bitteringHop: bitteringHop, flavorHops: []});
     expect(hopBill.getBitteringHopIbus()).toBeCloseTo(35, 0);
     hopBill.add(flavorHop);
     expect(hopBill.getBitteringHopIbus()).toBeCloseTo(18, 0);
   });
 
   it('should calculate amount of bittering hops needed when there are flavor hops', function () {
-    hopBill = new HopBill(35, bitteringHop, [flavorHop]);
+    hopBill = new HopBill({desiredIBUs: 35, bitteringHop: bitteringHop, flavorHops: [flavorHop]});
     expect(hopBill.getBitteringHopAmount()).toBeCloseTo(0.8, 1);
   });
 
   it('should adjust amount of bittering hops needed when flavor hops are added', function () {
-    hopBill = new HopBill(35, bitteringHop, []);
+    hopBill = new HopBill({desiredIBUs: 35, bitteringHop: bitteringHop, flavorHops: []});
     expect(hopBill.getBitteringHopAmount()).toBeCloseTo(1.6, 1);
     hopBill.add(flavorHop);
     expect(hopBill.getBitteringHopAmount()).toBeCloseTo(0.8, 1);
   });
 
   it('should adjust amount of bittering hops needed when flavor hops are removed', function () {
-    hopBill = new HopBill(35, bitteringHop, [flavorHop]);
+    hopBill = new HopBill({desiredIBUs: 35, bitteringHop: bitteringHop, flavorHops: [flavorHop]});
     expect(hopBill.getBitteringHopAmount()).toBeCloseTo(0.8, 1);
     hopBill.remove(flavorHop);
     expect(hopBill.getBitteringHopAmount()).toBeCloseTo(1.6, 1);
   });
 
   it('should work as used in the controller', function () {
-    hopBill  = new HopBill(35);
+    hopBill  = new HopBill({desiredIBUs: 35});
     var hop = hopBill.bitteringHop;
     hop.name = bitteringHop.name;
     hop.alphaAcid = bitteringHop.alphaAcid;

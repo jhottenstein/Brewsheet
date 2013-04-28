@@ -24,13 +24,13 @@ describe('hop storage service', function () {
       expect(hopStorage.hopBill).toBe(undefined);
     });
 
-  it('should persist to localStorage', function() {
-    $rootScope.$apply(function() {
-      hopStorage.hopBill = new HopBill(20);
-    });
+    it('should persist to localStorage', function() {
+      $rootScope.$apply(function() {
+        hopStorage.hopBill = new HopBill({desiredIBUs:20});
+      });
 
-    expect(localStorage.hopStorage).toBe('{"hopBill":{"desiredIBUs":20,"bitteringHop":{},"flavorHops":[]}}');
-  });
+      expect(localStorage.hopStorage).toBe('{"hopBill":{"desiredIBUs":20,"bitteringHop":{},"flavorHops":[]}}');
+    });
   });
 
 /*
