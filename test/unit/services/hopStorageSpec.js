@@ -33,11 +33,11 @@ describe('hop storage service', function () {
     });
   });
 
-/*
+
   it('should use localStorage value if it exists', function () {
     module(function ($provide) {
       localStorage = {
-        hopBill: '{"name":"Jasper","style":"Sarsaparilla","og":1.02,"ibu":10,"srm":20}'
+        hopBill: '{"hopBill":{"desiredIBUs":20,"bitteringHop":{},"flavorHops":[]}}' 
       };
 
       $provide.value('localStorage', localStorage);
@@ -47,11 +47,11 @@ describe('hop storage service', function () {
       hopStorage = _hopStorage_;
     });
 
-    expect(hopStorage.name).toBe('Jasper');
+    expect(hopStorage.hopBill).toBe('Jasper');
     expect(hopStorage.style).toBe('Sarsaparilla');
     expect(hopStorage.og).toBe(1.020);
     expect(hopStorage.ibu).toBe(10);
     expect(hopStorage.srm).toBe(20);
   });
-*/
+
 });

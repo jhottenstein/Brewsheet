@@ -3,12 +3,11 @@
 brewsheetApp.factory('hopStorage', function ($rootScope, localStorage) {
   var key = 'hopStorage';
   var hopStorageString = localStorage[key];
+  var hopStorage = hopStorageString ? JSON.parse(hopStorageString) : {} 
 
-  var hopBill = {hopBill: undefined};
-
-  $rootScope.$watch(function() { return hopBill; }, function() {
-    localStorage[key] = JSON.stringify(hopBill);
+  $rootScope.$watch(function() { return hopStorage; }, function() {
+    localStorage[key] = JSON.stringify(hopStorage);
   }, true);
 
-  return hopBill;
+  return hopStorage;
 });

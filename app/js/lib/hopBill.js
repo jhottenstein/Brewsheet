@@ -11,9 +11,10 @@ function HopBill(props) {
                       [];
 }
 
-HopBill.fromJSON = function(json) {
-  var oldHopBill = JSON.parse(json);
+HopBill.fromJSON = function(oldHopBill, desiredIBUs) {
+  oldHopBill.desiredIBUs = desiredIBUs;
   var newHopBill = new HopBill(oldHopBill);
+
   return newHopBill;
 };
 
