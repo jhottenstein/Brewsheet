@@ -2,7 +2,7 @@
 /*global HopBill:false */
 'use strict';
 
-describe('hop storage service', function () {
+ddescribe('hop storage service', function () {
   var hopStorage, localStorage, $rootScope;
 
   beforeEach(module('brewsheetApp'));
@@ -37,7 +37,7 @@ describe('hop storage service', function () {
   it('should use localStorage value if it exists', function () {
     module(function ($provide) {
       localStorage = {
-        hopBill: '{"hopBill":{"desiredIBUs":20,"bitteringHop":{},"flavorHops":[]}}' 
+        hopStorage: '{"hopBill":{"desiredIBUs":20,"bitteringHop":{},"flavorHops":[]}}' 
       };
 
       $provide.value('localStorage', localStorage);
@@ -47,11 +47,7 @@ describe('hop storage service', function () {
       hopStorage = _hopStorage_;
     });
 
-    expect(hopStorage.hopBill).toBe('Jasper');
-    expect(hopStorage.style).toBe('Sarsaparilla');
-    expect(hopStorage.og).toBe(1.020);
-    expect(hopStorage.ibu).toBe(10);
-    expect(hopStorage.srm).toBe(20);
+    expect(hopStorage.hopBill.desiredIBUs).toBe(20);
   });
 
 });

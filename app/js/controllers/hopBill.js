@@ -4,16 +4,19 @@
 brewsheetApp.controller('HopBillController',
   function HopBillController($scope, design, hopStorage) {
 
-    $scope.hopBill = hopStorage.hopBill && HopBill.fromJSON(hopStorage.hopBill, design.ibu) || new HopBill({desiredIBUs:design.ibu});
+    $scope.hopBill = hopStorage.hopBill; 
 
     $scope.newHop = new Hop({});
 
-    $scope.og = design.og;
     $scope.ibu = design.ibu;
 
     $scope.$watch('hopBill', function() {
-      hopStorage.hopBill = $scope.hopBill;
+      hopStorage.store();
     }, true);
+    $scope.$watch('design.ibu', function() {
+      console.log("yo");
+      hopStorage.updateHopBill();
+    });
 
     $scope.addHop = function(){
       if ($scope.newHop.isUndefined()) return;
