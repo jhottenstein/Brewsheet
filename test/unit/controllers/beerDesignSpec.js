@@ -19,23 +19,24 @@ describe('Beer Design Controller', function(){
     $controller('BeerDesignController', {$scope: scope = $rootScope});
   }));
 
+  //TODO move this function to a design object
   it('should be able to calculate BU/GU', function() {
     scope.ibu = 50;
     scope.og = 1.050;
     expect(scope.buGu()).toBeCloseTo(1,0);
   });
-
+  //TODO Move tests to design object
   it('should populate values from design service', function() {
-    expect(scope.name).toBe('Crab Creek Amber');
-    expect(scope.style).toBe('American Amber Ale');
-    expect(scope.og).toBe(1.055);
-    expect(scope.ibu).toBe(35);
-    expect(scope.srm).toBe(12);
+    expect(scope.design.name).toBe('Crab Creek Amber');
+    expect(scope.design.style).toBe('American Amber Ale');
+    expect(scope.design.og).toBe(1.055);
+    expect(scope.design.ibu).toBe(35);
+    expect(scope.design.srm).toBe(12);
   });
 
   var expectDesignPropertyToBe = function(property, value) {
     expect(design[property]).not.toBe(value);
-    scope[property] = value;
+    scope.design[property] = value;
     scope.$digest();
     expect(design[property]).toBe(value);
   };

@@ -1,7 +1,8 @@
+/*global HopBill */
 'use strict';
 
-brewsheetApp.factory('HopBillService', function (localStorage, design) {
-  var key = 'hopStorage2';
+brewsheetApp.factory('HopBillStore', function (localStorage, design) {
+  var key = 'hopStorage';
   var hopBill;
 
   return {
@@ -11,7 +12,6 @@ brewsheetApp.factory('HopBillService', function (localStorage, design) {
       var hopStorage = hopStorageString ? JSON.parse(hopStorageString) : {};
       angular.extend(hopStorage, {desiredIBUs: design.ibu});
       hopBill = new HopBill(hopStorage);
-//      hopBill = HopBill.fromJSON(hopStorage, design.ibu);
 
       return hopBill;
     },

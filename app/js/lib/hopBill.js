@@ -2,21 +2,15 @@
 "use strict";
 
 function HopBill(props) {
-  props = props || {};
-  this.desiredIBUs  = props.desiredIBUs;
-  this.bitteringHop = new Hop(props.bitteringHop || {});
-  this.flavorHops   = props.flavorHops && props.flavorHops.map(function(flavorHop) {
+  var defaults = {bitteringHop: {}, flavorHops: []};
+  var propsWithDefaults = angular.extend(defaults, props);
+
+  this.desiredIBUs  = propsWithDefaults.desiredIBUs;
+  this.bitteringHop = new Hop(propsWithDefaults.bitteringHop);
+  this.flavorHops   = propsWithDefaults.flavorHops.map(function(flavorHop) {
                         return new Hop(flavorHop);
-                      }) ||
-                      [];
+                      });
 }
-
-HopBill.fromJSON = function(oldHopBill, desiredIBUs) {
-  oldHopBill.desiredIBUs = desiredIBUs;
-  var newHopBill = new HopBill(oldHopBill);
-
-  return newHopBill;
-};
 
 (function (hopBillPrototype){
   hopBillPrototype.add = function(newHop) {

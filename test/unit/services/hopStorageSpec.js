@@ -1,53 +1,60 @@
 /*jshint camelcase:false */
-/*global HopBill:false */
+/*global HopBill:false, Hop*/
 'use strict';
 
-ddescribe('hop storage service', function () {
-  var hopStorage, localStorage, $rootScope;
+describe('Hop Bill service', function () {
+  var HopBillStore, localStorage;
 
   beforeEach(module('brewsheetApp'));
 
-  describe('Empty Local Storage Tests', function () {
+  describe('with empty local storage', function () {
     beforeEach(function () {
       module(function ($provide) {
         localStorage = {};
-
         $provide.value('localStorage', localStorage);
+        $provide.value('design', {ibu: 20});
       });
-      inject(function (_hopStorage_, _$rootScope_) {
-        hopStorage = _hopStorage_;
-        $rootScope = _$rootScope_;
+      inject(function (_HopBillStore_) {
+        HopBillStore = _HopBillStore_;
       });
     });
 
-    it('should default to undefined', function () {
-      expect(hopStorage.hopBill).toBe(undefined);
+    it('should default to an empty HopBill with the design ibus', function () {
+      expect(HopBillStore.get()).toEqual(new HopBill({desiredIBUs:20}));
     });
 
-    it('should persist to localStorage', function() {
-      $rootScope.$apply(function() {
-        hopStorage.hopBill = new HopBill({desiredIBUs:20});
-      });
 
-      expect(localStorage.hopStorage).toBe('{"hopBill":{"desiredIBUs":20,"bitteringHop":{},"flavorHops":[]}}');
+
+    it('should persist changes to localStorage', function() {
+      var hopBill = HopBillStore.get();
+      expect(hopBill).toEqual(new HopBill({desiredIBUs:20}));
+
+      hopBill.flavorHops.push(new Hop({name: 'happy'}));
+      HopBillStore.store();
+      var expectedJSON = '{"desiredIBUs":20,"bitteringHop":{},"flavorHops":[{"name":"happy"}]}';
+      expect(localStorage.hopStorage).toBe(expectedJSON);
     });
   });
 
 
-  it('should use localStorage value if it exists', function () {
+  it('should use localStorage value with design ibu', function () {
     module(function ($provide) {
       localStorage = {
-        hopStorage: '{"hopBill":{"desiredIBUs":20,"bitteringHop":{},"flavorHops":[]}}' 
+        hopStorage: '{"desiredIBUs":50,"bitteringHop":{},"flavorHops":[{"name":"happy"}]}'
       };
 
       $provide.value('localStorage', localStorage);
+      $provide.value('design', {ibu: 20});
     });
 
-    inject(function (_hopStorage_) {
-      hopStorage = _hopStorage_;
+    inject(function (_HopBillStore_) {
+      HopBillStore = _HopBillStore_;
     });
 
-    expect(hopStorage.hopBill.desiredIBUs).toBe(20);
+    var expectedHopBill = new HopBill({desiredIBUs: 20,
+                                        flavorHops: [new Hop({name: 'happy'})]
+                                      });
+    expect(HopBillStore.get()).toEqual(expectedHopBill);
   });
 
 });

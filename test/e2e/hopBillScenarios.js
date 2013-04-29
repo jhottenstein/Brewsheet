@@ -143,7 +143,6 @@ describe('Hop Bill Page', function() {
     input('ibu').enter('70');
     browser().navigateTo('/app/index.html#/hop_bill');
 
-    pause();
     expect(element('tbody tr td:eq(1)', 'Amount value').html()).toBe('3.0');
     expect(element('tbody tr td:eq(4)', 'IBUs value').html()).toBe('70');
   });

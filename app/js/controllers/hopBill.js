@@ -2,9 +2,9 @@
 'use strict';
 
 brewsheetApp.controller('HopBillController',
-  function HopBillController($scope, design, HopBillService) {
+  function HopBillController($scope, design, HopBillStore) {
 
-    $scope.hopBill = HopBillService.get();
+    $scope.hopBill = HopBillStore.get();
 
     $scope.newHop = new Hop({});
 
@@ -12,7 +12,7 @@ brewsheetApp.controller('HopBillController',
     $scope.ibu = design.ibu;
 
     $scope.$watch('hopBill', function() {
-      HopBillService.store();
+      HopBillStore.store();
     }, true);
 
     $scope.addHop = function(){
