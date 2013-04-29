@@ -2,21 +2,18 @@
 'use strict';
 
 brewsheetApp.controller('HopBillController',
-  function HopBillController($scope, design, hopStorage) {
+  function HopBillController($scope, design, HopBillService) {
 
-    $scope.hopBill = hopStorage.hopBill; 
+    $scope.hopBill = HopBillService.get();
 
     $scope.newHop = new Hop({});
 
+    $scope.og = design.og;
     $scope.ibu = design.ibu;
 
     $scope.$watch('hopBill', function() {
-      hopStorage.store();
+      HopBillService.store();
     }, true);
-    $scope.$watch('design.ibu', function() {
-      console.log("yo");
-      hopStorage.updateHopBill();
-    });
 
     $scope.addHop = function(){
       if ($scope.newHop.isUndefined()) return;
