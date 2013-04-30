@@ -10,24 +10,24 @@ describe('Beer Design Page', function() {
   });
 
   it('display BU/GU', function() {
-    input('og').enter('2');
-    input('ibu').enter('1000');
+    input('design.og').enter('2');
+    input('design.ibu').enter('1000');
     expect(element('#bu_gu').count()).toBe(1);
     expect(element('#bu_gu').html()).toBe('1.00');
 
   });
   it('should round BU/GU ratio to 2 decimal places ', function() {
-    input('og').enter('1.070');
-    input('ibu').enter('60');
+    input('design.og').enter('1.070');
+    input('design.ibu').enter('60');
     expect(element('#bu_gu').html()).toBe('0.86');
   });
 
   it('should keep design values after moving to another tab', function() {
-    var name = input('name'),
-        style = input('style'),
-        og = input('og'),
-        ibu = input('ibu'),
-        srm = input('srm');
+    var name = input('design.name'),
+        style = input('design.style'),
+        og = input('design.og'),
+        ibu = input('design.ibu'),
+        srm = input('design.srm');
 
     name.enter('Crab Creek Amber');
     style.enter('American Amber Ale');
