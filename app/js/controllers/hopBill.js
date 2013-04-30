@@ -2,14 +2,13 @@
 'use strict';
 
 brewsheetApp.controller('HopBillController',
-  function HopBillController($scope, design, HopBillStore) {
+  function HopBillController($scope, BeerDesignStore, HopBillStore) {
 
     $scope.hopBill = HopBillStore.get();
 
     $scope.newHop = new Hop({});
 
-    $scope.og = design.og;
-    $scope.ibu = design.ibu;
+    $scope.design = BeerDesignStore.get();
 
     $scope.$watch('hopBill', function() {
       HopBillStore.store();

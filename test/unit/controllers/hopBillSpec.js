@@ -1,20 +1,23 @@
-/*global Hop, HopBill, element, spyOn*/
+/*global Hop, HopBill, element, spyOn, BeerDesign*/
 'use strict';
 
 describe('Hop Bill Controller', function () {
-  var design, HopBillStore, scope;
-  var mockHopBill;
-  var mockStore;
+  var HopBillStore, scope;
+  var mockHopBill, mockStore;
+  var mockBeerDesign, mockBeerDesignStore;
   beforeEach(module('brewsheetApp'));
   beforeEach(module(function ($provide) {
-    design = {
+    var design = {
       og: 1.050,
       ibu: 35
     };
+    mockBeerDesign = new BeerDesign(design);
+    mockBeerDesignStore = {get: function(){return mockBeerDesign;}, store: function(){}};
+    $provide.value('BeerDesignStore', mockBeerDesignStore);
+
     mockHopBill = new HopBill();
     mockStore = {get: function(){return mockHopBill;}, store: function(){}};
     spyOn(mockStore, 'store');
-    $provide.value('design', design);
     $provide.value('HopBillStore', mockStore);
   }));
 
@@ -23,8 +26,8 @@ describe('Hop Bill Controller', function () {
   }));
 
   it('should populate values from design service', function () {
-    expect(scope.og).toBe(1.050);
-    expect(scope.ibu).toBe(35);
+    expect(scope.design.og).toBe(1.050);
+    expect(scope.design.ibu).toBe(35);
   });
 
   it('should populate hopBill from HopBillStore service', function () {
