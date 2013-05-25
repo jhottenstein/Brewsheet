@@ -11,7 +11,7 @@ That is what this brewsheet should assist with.
 
 
 MMFs
-* Calculate Hop Bill
+= Calculate Hop Bill
 - Calculate Malt Bill
 
 Stories
@@ -29,13 +29,23 @@ Stories
   = Remove default bittering hop
   = Calculate Utilization from boil time
   = Allow removal of flavor hops
- 
-- Capture hop bill
-  - Create hop storage service
-  - Save hopBill to localStorage
-  - Reconstruct a hopBill from the json
+= Capture hop bill
+  = Create hop storage service
+  = Save hopBill to localStorage
+  = Reconstruct a hopBill from the json
 
 Nice to Haves
   = Refactor hopBill
   - Make hop fields required before submit
   - Tab order, arrow keys
+
+Development Environment Setup
+  - Node 0.8.15
+  - Global Node modules
+    - bower@0.8.6
+    - jake@0.5.8
+    - npm@1.1.66
+
+
+Notes
+  - Install ddescriber?
