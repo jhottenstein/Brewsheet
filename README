@@ -12,32 +12,33 @@ That is what this brewsheet should assist with.
 
 MMFs
 = Calculate Hop Bill
-- Calculate Malt Bill
++ Calculate Malt Bill
 
 Stories
-= Capture Hop prerequisites
-= Calculate bittering hop additions
-= Allow one flavor hop addition
-  = Create table row
-  = Calculate ibus
-  = Adjust bittering hop needed
-= Allow multiple flavor hops
-  = Create table rows
-  = Calculate ibus
-  = Adjust bittering hop needed
-  = create e2e runner
-  = Remove default bittering hop
-  = Calculate Utilization from boil time
-  = Allow removal of flavor hops
-= Capture hop bill
-  = Create hop storage service
-  = Save hopBill to localStorage
-  = Reconstruct a hopBill from the json
++ Calculate base malt additions
+- Allow one flavor malt addition
+  - Create table row
+  - Calculate gus
+  - Adjust base malt needed
+- Allow multiple flavor malts
+  - Create table rows
+  - Calculate gus
+  - Adjust base malt needed
+  - create e2e runner
+  - Remove default base malt
+  - Calculate Utilization from boil time
+  - Allow removal of flavor malts
+- Capture grain bill
+  - Create grain bill storage service
+  - Save grain bill to localStorage
+  - Reconstruct a grain bill from the json
+
 
 Nice to Haves
-  = Refactor hopBill
-  - Make hop fields required before submit
-  - Tab order, arrow keys
+  - HopBill 
+    - Make hop fields required before submit
+    - Tab order, arrow keys
+    - Tie Design#ibus to HopBill#desiredIbus with Observer/PubSub/broadcast?
 
 Development Environment Setup
   - Node 0.8.15
