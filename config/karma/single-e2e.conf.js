@@ -52,6 +52,6 @@ captureTimeout = 60000;
 singleRun = true;
 
 proxies = {
-  '/': 'http://localhost/~ohottenstein/brew/'
+  '/': 'http://localhost/~jhottenstein/brew/'
 };
 
